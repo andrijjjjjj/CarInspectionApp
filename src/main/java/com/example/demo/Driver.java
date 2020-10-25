@@ -11,7 +11,7 @@ public class Driver {
 	
 	private String firstName, lastName, gender, email, password, birthday, phoneNumber;
 	
-	public Garage myGarage = new Garage();
+	public Garage myGarage;
 	
 	protected Driver() {}
 
@@ -25,6 +25,7 @@ public class Driver {
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		myGarage = new Garage();
 	}
 
 	public String getFirstName() {
@@ -88,6 +89,6 @@ public class Driver {
 	}
 	
 	public String toString() {
-		return firstName+" "+lastName+", "+birthday;
+		return firstName+" "+lastName+"\n"+birthday+"\n"+phoneNumber+"\n"+gender+"\n"+email+"\n"+username+"\n"+password;
 	}
 }
