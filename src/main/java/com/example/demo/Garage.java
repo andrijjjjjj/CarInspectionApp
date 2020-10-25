@@ -1,10 +1,12 @@
 package com.example.demo;
 
 import java.util.ArrayList;
+
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+@Embeddable
 public class Garage {
 	
 	protected Garage() {}

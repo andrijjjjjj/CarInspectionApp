@@ -1,6 +1,10 @@
 package com.example.demo;
 
-public class Car {
+import javax.persistence.Embeddable;
+import java.io.Serializable;
+
+public class Car implements Serializable{
+	
 	private String make, model, vehicleClass;
 	int year;
 	

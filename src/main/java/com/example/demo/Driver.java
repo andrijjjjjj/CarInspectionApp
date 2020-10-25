@@ -2,14 +2,17 @@ package com.example.demo;
 
 import java.util.ArrayList;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class Driver {
-	@Id
-	private String username; // ID in database
 	
-	private String firstName, lastName, gender, email, password, birthday, phoneNumber;
+	@Id
+	private String userID; // ID in database
+	
+	private String firstName, lastName, gender, email, password, birthday, phoneNumber, username;
 	
 	public Garage myGarage;
 	
@@ -25,7 +28,16 @@ public class Driver {
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		userID = firstName.substring(0,1) + lastName + birthday; // auto generate unique primary key: first letter of firstname + last name + birthday
 		myGarage = new Garage();
+	}
+
+	public String getUserID() {
+		return userID;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getFirstName() {
@@ -89,6 +101,7 @@ public class Driver {
 	}
 	
 	public String toString() {
-		return firstName+" "+lastName+"\n"+birthday+"\n"+phoneNumber+"\n"+gender+"\n"+email+"\n"+username+"\n"+password;
+//		return firstName+" "+lastName+"\n"+birthday+"\n"+phoneNumber+"\n"+gender+"\n"+email+"\n"+username+"\n"+password;
+		return "Name:\t\t"+firstName+" "+lastName+"\nDOB:\t\t"+birthday+"\nPhone:\t\t"+phoneNumber+"\nGender:\t\t"+gender+"\nEmail:\t\t"+email+"\nUsername:\t"+username+"\nPassword:\t"+password;
 	}
 }
