@@ -10,9 +10,10 @@ import javax.persistence.Id;
 public class Driver {
 	
 	@Id
-	private String userID; // ID in database
+	private String username;
+//	private String userID; // ID in database
 	
-	private String firstName, lastName, gender, email, password, birthday, phoneNumber, username;
+	private String firstName, lastName, gender, email, password, birthday, phoneNumber;
 	
 	public Garage myGarage;
 	
@@ -28,17 +29,18 @@ public class Driver {
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		userID = firstName.substring(0,1) + lastName + birthday; // auto generate unique primary key: first letter of firstname + last name + birthday
+//		userID = firstName.substring(0,1) + lastName + birthday; // auto generate unique primary key: first letter of firstname + last name + birthday
+//		userID = username;
 		myGarage = new Garage();
 	}
 
-	public String getUserID() {
-		return userID;
-	}
+//	public String getUserID() {
+//		return userID;
+//	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+//	public void setUsername(String username) {
+//		this.username = username;
+//	}
 
 	public String getFirstName() {
 		return firstName;

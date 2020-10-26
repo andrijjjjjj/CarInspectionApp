@@ -27,7 +27,7 @@ public class CarInspectionAppApplication {
 			
 			repo.save(a); repo.save(b); repo.save(c);
 			
-			printToConsole(a); printToConsole(b); printToConsole(c);
+//			printToConsole(a); printToConsole(b); printToConsole(c);
 		};
 	}
 	
