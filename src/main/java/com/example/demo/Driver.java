@@ -5,19 +5,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="driver")
 public class Driver {
 	
-	@Id
+	@Id 
 	private String username;
 //	private String userID; // ID in database
 	
 	private String firstName, lastName, gender, email, password, birthday, phoneNumber;
 	
 	public Garage myGarage;
-	
-	protected Driver() {}
+	//protected
+	public Driver() {}
 
 	public Driver(String firstName, String lastName, String birthday, String phoneNumber, String gender, 
 			String email, String username, String password) {
@@ -57,6 +59,22 @@ public class Driver {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+	
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
 	public String getGender() {
 		return gender;
@@ -86,21 +104,8 @@ public class Driver {
 		this.password = password;
 	}
 
-	public String getBirthday() {
-		return birthday;
-	}
 
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
-
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+	
 	
 	public String toString() {
 //		return firstName+" "+lastName+"\n"+birthday+"\n"+phoneNumber+"\n"+gender+"\n"+email+"\n"+username+"\n"+password;

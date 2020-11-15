@@ -14,8 +14,8 @@ public class CarInspectionAppApplication {
 		SpringApplication.run(CarInspectionAppApplication.class, args);
 	}
 	
-	@Bean
-	public CommandLineRunner loadData(DriverRepository repo, MainController controller) {
+	/*@Bean
+	public CommandLineRunner loadData(final DriverRepository repo, MainController controller) {
 		return (args) -> {
 			Driver a = new Driver("Andrij", "P*******", "01/02/3456", "123-456-7890", "Male", "andrij@email.com", "ap123456", "andrijspassword");
 			Driver b = new Driver("Braden", "M*******", "02/03/4567", "987-654-3210", "Male", "braden@email.com", "bm234567", "bradenspassword");
@@ -27,7 +27,7 @@ public class CarInspectionAppApplication {
 			
 			repo.save(a); repo.save(b); repo.save(c);
 			
-//			printToConsole(a); printToConsole(b); printToConsole(c);
+			printToConsole(a); printToConsole(b); printToConsole(c);
 		};
 	}
 	
@@ -36,5 +36,5 @@ public class CarInspectionAppApplication {
 		System.out.println(x.getFirstName()+"'s Garage:");
 		x.myGarage.listCarsInGarage();
 		System.out.println("\n");
-	}
+	}*/
 }
