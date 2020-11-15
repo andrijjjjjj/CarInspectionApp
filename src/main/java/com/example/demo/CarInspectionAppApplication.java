@@ -17,9 +17,9 @@ public class CarInspectionAppApplication {
 	@Bean
 	public CommandLineRunner loadData(DriverRepository repo, MainController controller) {
 		return (args) -> {
-			Driver a = new Driver("Andrij", "P*******", "01/02/3456", "123-456-7890", "Male", "andrij@email.com", "ap123456", "andrijspassword");
-			Driver b = new Driver("Braden", "M*******", "02/03/4567", "987-654-3210", "Male", "braden@email.com", "bm234567", "bradenspassword");
-			Driver c = new Driver("Lasean", "J*******", "03/04/5678", "123-789-4560", "Male", "lasean@email.com", "lj345678", "laseanspassword");
+			Driver a = new Driver("Andrij", "P*******", "01/02/3456", "123-456-7890", "Male", "andrij@email.com", "ap123456", "andrijspassword", false);
+			Driver b = new Driver("Braden", "M*******", "02/03/4567", "987-654-3210", "Male", "braden@email.com", "bm234567", "bradenspassword", false);
+			Driver c = new Driver("Lasean", "J*******", "03/04/5678", "123-789-4560", "Male", "lasean@email.com", "lj345678", "laseanspassword", true);
 			
 			a.myGarage.addCar("Acura", "TL", 2012, "A");
 			b.myGarage.addCar("Nissan", "GTR", 2020, "B"); b.myGarage.addCar("Honda", "Civic Type-R", 2015, "C");

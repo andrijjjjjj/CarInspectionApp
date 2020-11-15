@@ -22,10 +22,10 @@ public class MainController {
 	@PostMapping(path="/add") // Map ONLY POST Requests
 	public @ResponseBody String addNewDriver (@RequestParam String firstName, @RequestParam String lastName, 
 			@RequestParam String birthday, @RequestParam String phoneNumber, @RequestParam String gender, 
-			@RequestParam String email, @RequestParam String username, @RequestParam String password) {
+			@RequestParam String email, @RequestParam String username, @RequestParam String password, @RequestParam boolean isSigned) {
 		// @ResponseBody means the returned String is the response, not a view name
 		// @RequestParam means it is a parameter from the GET or POST request
-		Driver n = new Driver(firstName, lastName, birthday, phoneNumber, gender, email, username, password);
+		Driver n = new Driver(firstName, lastName, birthday, phoneNumber, gender, email, username, password, isSigned);
 		driverRepository.save(n);
 		return "Driver Saved";
 	}

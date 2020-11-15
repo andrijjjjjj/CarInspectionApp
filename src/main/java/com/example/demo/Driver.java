@@ -14,13 +14,13 @@ public class Driver {
 //	private String userID; // ID in database
 	
 	private String firstName, lastName, gender, email, password, birthday, phoneNumber;
-	
+	boolean isSigned;
 	public Garage myGarage;
 	
 	protected Driver() {}
 
 	public Driver(String firstName, String lastName, String birthday, String phoneNumber, String gender, 
-			String email, String username, String password) {
+			String email, String username, String password, boolean isSigned) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthday = birthday;
@@ -29,6 +29,7 @@ public class Driver {
 		this.email = email;
 		this.username = username;
 		this.password = password;
+		this.isSigned = isSigned;
 //		userID = firstName.substring(0,1) + lastName + birthday; // auto generate unique primary key: first letter of firstname + last name + birthday
 //		userID = username;
 		myGarage = new Garage();
@@ -102,6 +103,13 @@ public class Driver {
 		this.phoneNumber = phoneNumber;
 	}
 	
+	public boolean getIsSigned() {
+		return isSigned;
+	}
+
+	public void setIsSigne(String phoneNumber) {
+		this.isSigned = isSigned;
+	}
 	public String toString() {
 //		return firstName+" "+lastName+"\n"+birthday+"\n"+phoneNumber+"\n"+gender+"\n"+email+"\n"+username+"\n"+password;
 		return "Name:\t\t"+firstName+" "+lastName+"\nDOB:\t\t"+birthday+"\nPhone:\t\t"+phoneNumber+"\nGender:\t\t"+gender+"\nEmail:\t\t"+email+"\nUsername:\t"+username+"\nPassword:\t"+password;

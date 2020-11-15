@@ -7,7 +7,6 @@ public class Car implements Serializable{
 	
 	private String make, model, vehicleClass;
 	int year;
-	
 	public Car(String make, String model, int year, String vehicleClass) {
 		this.make = make;
 		this.model = model; 
