@@ -52,7 +52,7 @@ public class MainController {
 		System.out.println("\nNew Driver Added to carclubdb!\n"+signupDriver.toString());
 		return "result";
 	}
-	// Waiver Method START
+	// Waiver Method START ( not sure how either of these methods work just changed them to load the page)
 	@GetMapping("/waiver")
 	public String waiverForm(Model model) {
 		model.getAttribute("isSigned");
