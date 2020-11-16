@@ -52,7 +52,7 @@ public class MainController {
 		System.out.println("\nNew Driver Added to carclubdb!\n"+signupDriver.toString());
 		return "result";
 	}
-	// Sign up method START
+	// Waiver Method START
 	@GetMapping("/waiver")
 	public String waiverForm(Model model) {
 		model.getAttribute("isSigned");
@@ -62,7 +62,7 @@ public class MainController {
 	public String waiverSubmit(@ModelAttribute Driver waiverDriver, Model model) {
 		model.addAttribute("waiverDriver", waiverDriver);
 		driverRepository.save(waiverDriver);
-		System.out.println("\nNew Driver Added to carclubdb!\n"+waiverDriver.toString());
+		System.out.println("\n You have Successfly signed your 2020 Waiver!\n"+waiverDriver.toString());
 		return "result";
 	}
 }
