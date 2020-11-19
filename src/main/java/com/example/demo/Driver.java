@@ -13,19 +13,18 @@ public class Driver {
 	private String username;
 //	private String userID; // ID in database
 	
-	private String firstName, lastName, gender, email, password, birthday, phoneNumber;
-	boolean isSigned;
+	private String firstName, lastName, email, password, birthday, phoneNumber;
+	private boolean isSigned;
 	public Garage myGarage;
 	
 	protected Driver() {}
 
-	public Driver(String firstName, String lastName, String birthday, String phoneNumber, String gender, 
+	public Driver(String firstName, String lastName, String birthday, String phoneNumber, 
 			String email, String username, String password, boolean isSigned) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthday = birthday;
 		this.phoneNumber = phoneNumber;
-		this.gender = gender;
 		this.email = email;
 		this.username = username;
 		this.password = password;
@@ -57,14 +56,6 @@ public class Driver {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
 	}
 
 	public String getEmail() {
@@ -112,6 +103,6 @@ public class Driver {
 	}
 	public String toString() {
 //		return firstName+" "+lastName+"\n"+birthday+"\n"+phoneNumber+"\n"+gender+"\n"+email+"\n"+username+"\n"+password;
-		return "Name:\t\t"+firstName+" "+lastName+"\nDOB:\t\t"+birthday+"\nPhone:\t\t"+phoneNumber+"\nGender:\t\t"+gender+"\nEmail:\t\t"+email+"\nUsername:\t"+username+"\nPassword:\t"+password;
+		return "Name:\t\t"+firstName+" "+lastName+"\nDOB:\t\t"+birthday+"\nPhone:\t\t"+phoneNumber+"\nGender:\t\t"+"\nEmail:\t\t"+email+"\nUsername:\t"+username+"\nPassword:\t"+password;
 	}
 }

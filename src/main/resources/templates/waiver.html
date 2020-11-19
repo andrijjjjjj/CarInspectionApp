@@ -49,11 +49,10 @@ I HAVE READ THIS RELEASE AND WAIVER OF LIABILITY, ASSUMPTION OF RISK, AND INDEMN
 UNDERSTAND THAT BY SIGNING IT GIVE up SUBSTANTIAL RIGHTS WOULD OTHERWISE HAVE TO RECOVER DAMAGES
 FOR LOSSES OCCASIONED THE RELEASEES NEGLIGENCE, AND SIGN IT VOLUNTARILY AND WITHOUT ANY INDUCEMENT
 OF ANY NATURE AND INTEND FOR IT TO BE ENFORCED TO THE GREATEST EXTENT ALLOWED BY LAW.</h3>
-<form style="display: flex; justify-content: center; align-items: center;">
+<form method="post" th:action="@{/waiver}" style="display: flex; justify-content: center; align-items: center;">
 <p>
- By checking this box you agree to the terms and conditions
-<input type="checkbox" id="waiverCheckbox"></p>
-</form>
+<h4>By checking this box you agree to the terms and conditions</h4>
+<input type="checkbox" id="waiverVerify" name="waiverVerify"  th:checked="${waiverVerify}"></p>
 <div style="  display: flex; justify-content: center; align-items: center;">
 <input type="submit" id="waiverSubmit" style=" margin: 15px;
  background-color: black;
@@ -66,4 +65,5 @@ OF ANY NATURE AND INTEND FOR IT TO BE ENFORCED TO THE GREATEST EXTENT ALLOWED BY
  font-family: monospace;
  font-size: 16px;">
  </div>
+</form>
 </html>
