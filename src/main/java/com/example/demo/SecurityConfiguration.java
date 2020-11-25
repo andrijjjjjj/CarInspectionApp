@@ -1,3 +1,12 @@
+/*
+ * SecurityConfiguration
+ * ------------------------------------------------------------------
+ * A part of Spring Security. Encrypts passwords &
+ * helps with login and logout requests as well as
+ * authenticating users and their credentials during
+ * a session.
+ * ------------------------------------------------------------------
+ */
 package com.example.demo;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +19,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import com.example.demo.UserService;
 
 @Configuration
 @EnableWebSecurity

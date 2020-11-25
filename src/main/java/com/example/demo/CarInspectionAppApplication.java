@@ -1,3 +1,10 @@
+/*
+ * Main SpringBoot Application
+ * ------------------------------------------------------------------
+ * This file runs our Car Inspection Application.
+ * Run as... 'Spring Boot App'
+ * ------------------------------------------------------------------
+ */
 package com.example.demo;
 
 import org.springframework.boot.SpringApplication;

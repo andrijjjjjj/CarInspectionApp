@@ -1,3 +1,12 @@
+/*
+ * MainController
+ * ------------------------------------------------------------------
+ * The controller controls the data flow into model object and
+ * updates the view whenever data changes. It keeps view and 
+ * model separate. All page redirections are done here.
+ * ------------------------------------------------------------------
+ */
+
 package com.example.demo;
 
 import java.io.IOException;
@@ -6,10 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-//import java.util.Calendar;
 import java.util.Date;
-//import java.util.GregorianCalendar;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -21,11 +27,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
-//import com.example.demo.User;
-//import com.example.demo.UserRepository;
-//import com.example.demo.UserServiceImpl;
-
 
 
 @Controller
@@ -49,13 +50,11 @@ public class MainController {
 	public String home(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
-//		User user = userRepository.findByEmail(Email);
 		user = userRepository.findByEmail(Email);
 		model.addAttribute("firstName", user.getFirstName());
 		return"index";
 	}
 	
-	//public Car(String make, String model, int year, String vehicleClass)
 	@GetMapping("/carregistration")
 	public String carRegistrationForm(Model model) {
 		return "carregistration";
@@ -78,19 +77,17 @@ public class MainController {
 		System.out.println(carMake+"\n"+carModel+"\n"+year+"\n"+carClass);
 		user.addCar(carMake, carModel, year, carClass);
 		user.listCarsInGarage();
-//		userRepository.save(user);
 	}
 	
-	//public Car(String make, String model, int year, String vehicleClass)
-		@GetMapping("/myGarage")
-		public String myGarage(Model model) {
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			String Email = auth.getName();
+	@GetMapping("/myGarage")
+	public String myGarage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String Email = auth.getName();
 
-			user = userRepository.findByEmail(Email);
-			model.addAttribute("garageList", user.getGarageList());
-			return "myGarage";
-		}
+		user = userRepository.findByEmail(Email);
+		model.addAttribute("garageList", user.getGarageList());
+		return "myGarage";
+	}
 
 	
 	@GetMapping("/uploadimage")
@@ -128,8 +125,6 @@ public class MainController {
 		
 	}
 
-	
-	//WORKS NOW ADDS PICTURE TO LOGGED IN USER.
 	@PostMapping("/saveUserPic")
 	public String saveUser(@ModelAttribute(name = "user")User user, @RequestParam("driverImage") MultipartFile multipartFile) throws IOException{
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());

@@ -1,11 +1,18 @@
+/*
+ * User
+ * ------------------------------------------------------------------
+ * The User class is a blueprint of what makes up am user
+ * on the CCSCC car inspection application. Personal 
+ * information, documentation, photographs, cars, login
+ * information, roles, and other information vital for
+ * an user are declared here.
+ * ------------------------------------------------------------------ 
+ */
 package com.example.demo;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,9 +24,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
-
 import org.springframework.data.annotation.Transient;
-
 import javax.persistence.JoinColumn;
 
 @Entity
@@ -49,8 +54,6 @@ public class User {
 	
 	private ArrayList<Car> myGarage = new ArrayList<Car>();
 	
-//	public Garage myGarage;
-	
 	@Column(nullable = true, length = 64)
 	private String photo;
 	
@@ -62,9 +65,8 @@ public class User {
 		inverseJoinColumns = @JoinColumn(
 				name = "role_id", referencedColumnName = "id"))
 	private Collection<Role> roles;
-	public User() {
-		
-	}
+	public User() {}
+	
 	public User(String firstName, String lastName, String password, String email, String birthday, String phoneNumber, boolean isSigned,Collection<Role> roles) {
 		super();
 		this.firstName = firstName;
@@ -75,7 +77,6 @@ public class User {
 		this.birthday = birthday;
 		this.phoneNumber = phoneNumber;
 		this.isSigned = isSigned;
-//		myGarage = new Garage();
 	}
 
 	public void addCar(String make, String model, int year, String vehicleClass) {
@@ -141,21 +142,27 @@ public class User {
 	public String getBirthday() {
 		return birthday;
 	}
+	
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+	
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
 	public boolean getIsSigned() {
 		return isSigned;
 	}
+	
 	public void setSigned(boolean isSigned) {
 		this.isSigned = isSigned;
 	}
+	
 	public Collection<Role> getRoles() {
 		return roles;
 	}
@@ -163,18 +170,23 @@ public class User {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
+	
 	public String getPhoto() {
 		return photo;
 	}
+	
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
+	
 	public Date getSignedDate() {
 		return signedDate;
 	}
+	
 	public void setSignedDate(Date signedDate) {
 		this.signedDate = signedDate;
 	}
+	
 	@Transient
 	public String getUserImagePath(){
 		if (photo == null || id == null) return null;
