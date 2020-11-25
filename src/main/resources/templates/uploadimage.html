@@ -1,0 +1,54 @@
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>Home Page</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar (header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aira-controls="navbar">
+				<span class="sr-only">Toggle Navigation</span> <span
+				class="icon-bar"></span><span class="icon-bar"></span><span
+				class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#" th:ref="@{/}">Registration and Login Module</a>
+			</div>
+			</div>	
+	</nav>
+	<br>
+	<br>
+	<br>
+	<div class="container">
+
+			<!-- success message -->
+			<div th:if="${param.success}">
+				<div class ="alert alert-info">
+				Thank you for Adding a picture!</div>
+				<!--<img th:src="@{${user.userImagePath}}" /> -->
+			</div>
+
+
+	<form th:action="@{/saveUserPic}"
+    th:object="${user}" method="post"
+    enctype="multipart/form-data"
+    >
+    
+    <div>
+     
+    <label>Photos: </label>
+    <input type="file" name="driverImage" accept="image/png, image/jpeg" />
+     <button type="submit" class="btn btn-success">Add Photo</button>
+    </div>
+    
+</form>
+	</div>
+</body>
+</html>

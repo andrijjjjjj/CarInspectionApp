@@ -1,6 +1,5 @@
 package com.example.demo;
 
-import javax.persistence.Embeddable;
 import java.io.Serializable;
 
 public class Car implements Serializable{
@@ -29,7 +28,5 @@ public class Car implements Serializable{
 
 	public int getYear() {
 		return year;
-	}
-	
-	// no setters (cars shouldn't change information once created)
+	}	
 }

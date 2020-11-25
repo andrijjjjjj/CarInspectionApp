@@ -36,40 +36,34 @@
 	
 	<br>
 	<br>
-
-	<div class="container">
-		<br>
-		
-		<br>
-		Welcome <span sec:authentication="principal.username"> User</span>
-		<br>
-	<div>
+<!-- //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 	
-	<span th:text="${firstName}">default</span>
-	<h2>Your Cars:</h2>
-	<br>
-	
-	<table class="table">
-		<tr>
-		<th> Make </th>
-		<th> Model </th>
-		<th> Year</th>
-		<th> Class </th>
-		</tr>
-		<!-- Dummy information for display until we get info pulling from database -->
-		<tr>
-		<td>Scion</td>
-		<td>TC</td>
-		<td>2010</td>
-		<td>Production</td>
-		</tr>
-	
-	</table>
-	
-	
-	</div>	
-		
-		
+	<div class = "container">
+		<div class = "row">
+			<div class ="col-md-6 col-md-offset-3">
+			
+			<h1>Car Registration</h1>
+			<form th:action="@{/carregistration}" method="post">
+			
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="carMake" name="carMake" placeholder="Car Manufacturer" autofocus="autofocus"/>
+				</div>
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="carModel" name="carModel" placeholder="Car Model" autofocus="autofocus"/>
+				</div>
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="carYear" name="carYear" placeholder="Car Year" autofocus="autofocus"/>
+				</div>
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="carClass" name="carClass" placeholder="Car Class" autofocus="autofocus"/>
+				</div>
+				
+				<div class="form-group">
+					<button type="submit" class="btn btn-success">Register</button>
+				</div>
+			</form>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
