@@ -80,7 +80,7 @@ public class MainController {
 		String carPhoto;
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
 		carPhoto = fileName;
-		String uploadDir = "./src/main/resources/static/user-logos/" + licensePlateNum;
+		String uploadDir = "./src/main/resources/static/user-logos/" + user.getId() + "/" + licensePlateNum;
 		Path uploadPath = Paths.get(uploadDir);
 		if(!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);

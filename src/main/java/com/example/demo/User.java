@@ -80,7 +80,7 @@ public class User {
 	}
 
 	public void addCar(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto) {
-		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum, carPhoto);
+		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum, carPhoto, id);
 		 myGarage.add(newCar);
 	}
 	

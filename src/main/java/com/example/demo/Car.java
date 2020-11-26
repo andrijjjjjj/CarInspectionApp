@@ -23,16 +23,18 @@ public class Car implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private String make, model, vehicleClass, licensePlateNum;
-	int year;
+	private int year;
+	private Long id;
 	private String carPhoto;
 	
-	public Car(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto) {
+	public Car(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto, Long id) {
 		this.make = make;
 		this.model = model; 
 		this.year = year;
 		this.vehicleClass = vehicleClass;
 		this.licensePlateNum = licensePlateNum;
 		this.carPhoto = carPhoto;
+		this.id = id; 
 	}
 
 	public String getMake() {
@@ -63,11 +65,18 @@ public class Car implements Serializable{
 	public String getLicensePlateNum() {
 		return licensePlateNum;
 	}
+	
+	public Long getiD() {
+		return id;
+	}
+	
 	@Transient
 	public String getCarImagePath(){
 		if (carPhoto == null) return null;
 		
-		return "/user-logos/" + licensePlateNum + "/" + carPhoto;
+//		return "/user-logos/" + licensePlateNum + "/" + carPhoto;
 		//return "/user-logos/" + id + "/" + photo;
+		
+		return "/user-logos/" + id + "/" + licensePlateNum + "/" + carPhoto;
 	}
 }
