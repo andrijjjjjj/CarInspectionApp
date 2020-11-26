@@ -26,17 +26,19 @@ FIX:
 	
 	3. Check that 'mysql>' is present on terminal window
 	
-	4. Enter command: 'create DATABASE carclubdb;'
+	4. Enter command: 'drop DATABASE carclubdb;' (If you have a past one still active)
 	
-	5. Enter command: 'USE carclubdb'
+	5. Enter command: 'create DATABASE carclubdb;'
+	
+	6. Enter command: 'USE carclubdb'
 		
-	6. Now run the project without signing in or registering! Once booted up successfully, shut it down.
+	7. Now run the project without signing in or registering! Once booted up successfully, shut it down.
 	 
-	7. This will create all the tables and columns we will be using!
+	8. This will create all the tables and columns we will be using!
 	
-	8. Enter command: ALTER TABLE user MODIFY my_garage LONGBLOB;
+	9. Enter command: ALTER TABLE user MODIFY my_garage LONGBLOB;
 		
-	9. You are done! Type 'exit' to leave the mysql terminal
+	10. You are done! Type 'exit' to leave the mysql terminal
 	
-	10. Run the project again and you can enter more cars now!
+	11. Run the project again and you can enter more cars now!
 -------------------------------------------------------------------------------------------------------------------------------
