@@ -55,7 +55,7 @@ public class MainController {
 //		model.addAttribute("firstName", user.getFirstName());
 		
 //		model.addAttribute("myGarage", user.getMyGarage());
-		
+		model.addAttribute("photo", user.getUserImagePath());
 		return"index";
 	}
 	
@@ -188,7 +188,7 @@ public class MainController {
 		User savedUser = userRepository.findByEmail(Email);
 		savedUser.setPhoto(fileName);
 		userRepository.save(user);
-		String uploadDir = "./user-logos/" + savedUser.getId();
+		String uploadDir = "./src/main/resources/static/user-logos/" + savedUser.getId();
 		Path uploadPath = Paths.get(uploadDir);
 		
 		if(!Files.exists(uploadPath)) {

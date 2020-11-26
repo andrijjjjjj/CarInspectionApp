@@ -207,6 +207,6 @@ public class User {
 	public String getUserImagePath(){
 		if (photo == null || id == null) return null;
 		
-		return "/user-logos/" + id + "/" +photo;
+		return "/user-logos/" + id + "/" + photo;
 	}
 }
