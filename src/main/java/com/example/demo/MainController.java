@@ -51,8 +51,8 @@ public class MainController {
 	public String home(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
-		user = userRepository.findByEmail(Email);
-//		model.addAttribute("firstName", user.getFirstName());
+		user = userRepository.findByEmail(Email); // new!! andrij
+		model.addAttribute("user", user); // new!! andrij
 		
 //		model.addAttribute("myGarage", user.getMyGarage());
 		model.addAttribute("photo", user.getUserImagePath());

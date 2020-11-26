@@ -205,7 +205,12 @@ public class User {
 	
 	@Transient
 	public String getUserImagePath(){
-		if (photo == null || id == null) return null;
+//		if (photo == null || id == null) return null;
+//		
+//		return "/user-logos/" + id + "/" + photo;
+		if (photo == null || id == null) {
+			return "defaultUserLogo.png";
+		}
 		
 		return "/user-logos/" + id + "/" + photo;
 	}
