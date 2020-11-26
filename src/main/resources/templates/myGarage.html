@@ -49,6 +49,7 @@
 		<th> Year  </th>
 		<th> License </th>
 		<th> Class </th>
+		<th> Photo </th>
 		</tr>
 		
 		<ul th:each="car : ${myGarage}">
@@ -59,6 +60,7 @@
 				<td><p th:text="${car.getYear()}"/></td>
 				<td><p th:text="${car.getLicensePlateNum()}"/></td>
 				<td><p th:text="${car.getVehicleClass()}"/></td>
+				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
 			</tr>
 		</ul>
 		

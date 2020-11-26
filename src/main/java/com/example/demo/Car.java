@@ -12,6 +12,10 @@ package com.example.demo;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+
+import org.springframework.data.annotation.Transient;
+
 public class Car implements Serializable{
 	
 	/**
@@ -20,13 +24,15 @@ public class Car implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private String make, model, vehicleClass, licensePlateNum;
 	int year;
+	private String carPhoto;
 	
-	public Car(String make, String model, int year, String vehicleClass, String licensePlateNum) {
+	public Car(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto) {
 		this.make = make;
 		this.model = model; 
 		this.year = year;
 		this.vehicleClass = vehicleClass;
 		this.licensePlateNum = licensePlateNum;
+		this.carPhoto = carPhoto;
 	}
 
 	public String getMake() {
@@ -45,9 +51,23 @@ public class Car implements Serializable{
 		return year;
 	}	
 	
+	public String getCarPhoto() {
+		return carPhoto;
+	}
+
+	public void setCarPhoto(String carPhoto) {
+		this.carPhoto = carPhoto;
+	}
+
 	// differentiates vehicle if cars are identical
 	public String getLicensePlateNum() {
 		return licensePlateNum;
 	}
-	
+	@Transient
+	public String getCarImagePath(){
+		if (carPhoto == null) return null;
+		
+		return "/user-logos/" + licensePlateNum + "/" + carPhoto;
+		//return "/user-logos/" + id + "/" + photo;
+	}
 }

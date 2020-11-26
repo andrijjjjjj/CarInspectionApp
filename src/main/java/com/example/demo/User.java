@@ -79,8 +79,8 @@ public class User {
 		this.isSigned = isSigned;
 	}
 
-	public void addCar(String make, String model, int year, String vehicleClass, String licensePlateNum) {
-		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum);
+	public void addCar(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto) {
+		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum, carPhoto);
 		 myGarage.add(newCar);
 	}
 	
