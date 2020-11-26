@@ -71,21 +71,37 @@ public class MainController {
 			@RequestParam(value="carYear",required =false) String carYear,
 			@RequestParam(value="carClass",required =false) String carClass,
 			@RequestParam(value="licensePlateNum",required =false) String licensePlateNum,
-			Model model) {
+			@RequestParam(value="carPhoto", required =false) MultipartFile multipartFile,
+			Model model) throws IOException {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		int year = Integer.parseInt(carYear);
 		
+		String carPhoto;
+		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		carPhoto = fileName;
+		String uploadDir = "./src/main/resources/static/user-logos/" + licensePlateNum;
+		Path uploadPath = Paths.get(uploadDir);
+		if(!Files.exists(uploadPath)) {
+			Files.createDirectories(uploadPath);
+		}
 		
-		String newCar = year+" "+carMake+" "+carModel+" "+"("+carClass+") ["+licensePlateNum+"] was added to your garage!";
+		try(InputStream inputStream = multipartFile.getInputStream()){;
+		Path filePath = uploadPath.resolve(fileName);
+		System.out.println(filePath.toString());
+		Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
+		}catch(IOException e) {
+			throw new IOException("Could not save uploaded file: " + fileName);
+		}
+		String newCar = year+" "+carMake+" "+carModel+" "+"("+carClass+") ["+licensePlateNum+" "+carPhoto+ "] was added to your garage!";
 //		model.addAttribute("newCar", newCar);
 		
 		String Email = auth.getName();
 
 		user = userRepository.findByEmail(Email);
-		
+	
 //		System.out.println(carMake+"\n"+carModel+"\n"+year+"\n"+carClass);
-		user.addCar(carMake, carModel, year, carClass, licensePlateNum);
+		user.addCar(carMake, carModel, year, carClass, licensePlateNum,carPhoto);
 		
 		System.out.println(newCar);
 //		System.out.println(user.listCarsInGarage());
