@@ -15,19 +15,18 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aira-controls="navbar">
+				aria-controls="navbar">
 				<span class="sr-only">Toggle Navigation</span> <span
 				class="icon-bar"></span><span class="icon-bar"></span><span
 				class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
+				<a class="navbar-brand" href="/" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/carregistration}">Register a Car</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">New! My Garage</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
@@ -36,33 +35,46 @@
 	
 	<br>
 	<br>
+
+	<div class="container"><br>
 	
-	<div class = "container">
-		<div class = "row">
-			<div class ="col-md-6 col-md-offset-3">
+	<h2>delete a vehicle:</h2>
+	<br>
+	
+		<table class="table">
+		<tr>
+		<th> Vehicle #  </th>
+		<th> Make  </th>
+		<th> Model </th>
+		<th> Year  </th>
+		<th> License </th>
+		<th> Class </th>
+		</tr>
+		
+		<ul th:each="car : ${myGarage}">
+			<tr>
+				<td><p th:text="${user.findCar(car)}"/></td>
+				<td><p th:text="${car.getMake()}"/></td> 
+				<td><p th:text="${car.getModel()}"/></td>
+				<td><p th:text="${car.getYear()}"/></td>
+				<td><p th:text="${car.getLicensePlateNum()}"/></td>
+				<td><p th:text="${car.getVehicleClass()}"/></td>
+			</tr>
+		</ul>
+	</table> 
+	
+	<p>Select a vehicle by typing its vehicle number & submitting</p>
+	
+	<form th:action="@{/deleteCar}" method="post">
 			
-			<h1>Car Registration</h1>
-			<form th:action="@{/carregistration}" method="post">
-			
-				<div class="form-group"> 
-					<input type="text" class="form-control" id="carMake" name="carMake" placeholder="Car Manufacturer" autofocus="autofocus"/>
-				</div>
-				<div class="form-group"> 
-					<input type="text" class="form-control" id="carModel" name="carModel" placeholder="Car Model" autofocus="autofocus"/>
-				</div>
-				<div class="form-group"> 
-					<input type="text" class="form-control" id="carYear" name="carYear" placeholder="Car Year" autofocus="autofocus"/>
-				</div>
-				<div class="form-group"> 
-					<input type="text" class="form-control" id="carClass" name="carClass" placeholder="Car Class" autofocus="autofocus"/>
-				</div>
-				
-				<div class="form-group">
-					<button type="submit" class="btn btn-success">Register</button>
-				</div>
-			</form>
-			</div>
+		<div class="form-group"> 
+			<input type="number" class="form-control" id="index" name="index" placeholder="Vehicle #" autofocus="autofocus"/>
 		</div>
+		
+		<div class="form-group">
+			<button type="submit" class="btn btn-danger">Delete vehicle</button>
+		</div>
+	</form>
 	</div>
 </body>
 </html>

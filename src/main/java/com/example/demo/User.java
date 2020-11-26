@@ -79,24 +79,40 @@ public class User {
 		this.isSigned = isSigned;
 	}
 
-	public void addCar(String make, String model, int year, String vehicleClass) {
-		 Car newCar = new Car(make, model, year, vehicleClass);
+	public void addCar(String make, String model, int year, String vehicleClass, String licensePlateNum) {
+		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum);
 		 myGarage.add(newCar);
 	}
 	
 	public void removeCar(int orderInGarage) {
 		myGarage.remove(orderInGarage-1);
+//		myGarage.remove(orderInGarage);
 	}
 	
-	public void listCarsInGarage() {
-		for(int i = 0; i < myGarage.size(); i++) {
-			System.out.println("Car #"+(i+1)+" - "+myGarage.get(i).getYear()+" "+myGarage.get(i).getMake()+" "+myGarage.get(i).getModel()+" (Class "+myGarage.get(i).getVehicleClass()+")");
-		}
-	}
+//	public String listCarsInGarage() {
+//		String cars ="";
+//		for(int i = 0; i < myGarage.size(); i++) {
+////			System.out.println("Car #"+(i+1)+" - "+myGarage.get(i).getYear()+" "+myGarage.get(i).getMake()+" "+myGarage.get(i).getModel()+" (Class "+myGarage.get(i).getVehicleClass()+")");
+//			cars += myGarage.get(i).getYear()+" "+myGarage.get(i).getMake()+" "+myGarage.get(i).getModel()+" ("+myGarage.get(i).getVehicleClass()+")"+"\n";
+//		}
+//		return cars;
+//	}
 	
-	public ArrayList<Car> getGarageList()
-	{
+	public ArrayList<Car> getMyGarage() {
 		return myGarage;
+	}
+	
+	// use only for deleteCar!
+	public int findCar(Car x) {
+		int index = 0;
+		for(int i = 0; i < myGarage.size(); i++)
+		{
+			if(myGarage.get(i).getLicensePlateNum() == x.getLicensePlateNum())
+			{
+				index = i;
+			}
+		}
+		return index+1;
 	}
 	
 	public Long getId() {
@@ -191,6 +207,6 @@ public class User {
 	public String getUserImagePath(){
 		if (photo == null || id == null) return null;
 		
-		return "/user-logos/" + id + "/" +photo;
+		return "/user-logos/" + id + "/" + photo;
 	}
 }

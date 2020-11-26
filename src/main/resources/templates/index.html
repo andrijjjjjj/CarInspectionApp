@@ -15,60 +15,34 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aira-controls="navbar">
+				aria-controls="navbar">
 				<span class="sr-only">Toggle Navigation</span> <span
 				class="icon-bar"></span><span class="icon-bar"></span><span
 				class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
+				<a class="navbar-brand" href="/" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/}">Index</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/carregistration}">Register a Car</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">New! My Garage</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
 		</div>
 	</nav>
 	
+	
 	<br>
 	<br>
 
 	<div class="container">
-		<br>
-		
-		<br>
-		Welcome <span sec:authentication="principal.username"> User</span>
-		<br>
-	<div>
-	
-	<span th:text="${firstName}">default</span>
-	<h2>Your Cars:</h2>
+
+	<h2>Welcome back <span th:text="${firstName}">default</span>!</h2>
+	<img th:src="${photo}" style="width:10em; height: 10em;">
 	<br>
-	
-	<table class="table">
-		<tr>
-		<th> Make </th>
-		<th> Model </th>
-		<th> Year</th>
-		<th> Class </th>
-		</tr>
-		<!-- Dummy information for display until we get info pulling from database -->
-		<tr>
-		<td>Scion</td>
-		<td>TC</td>
-		<td>2010</td>
-		<td>Production</td>
-		</tr>
-	
-	</table>
-	
-	
-	</div>	
-		
 		
 	</div>
 </body>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>CCSCC Car Inspection and Waiver App</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar (header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aira-controls="navbar">
+				<span class="sr-only">Toggle Navigation</span> <span
+				class="icon-bar"></span><span class="icon-bar"></span><span
+				class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/}">Index</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+			</div>	
+		</div>
+	</nav>
+	
+	<br>
+	<br>
+	
+	<div class = "container">
+		<div class = "row">
+			<div class ="col-md-6 col-md-offset-3">
+			
+			<h1>Add a vehicle</h1>
+			<form th:action="@{/addCar}" method="post">
+			
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="carMake" name="carMake" placeholder="Vehicle Manufacturer" autofocus="autofocus"/>
+				</div>
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="carModel" name="carModel" placeholder="Vehicle Model" autofocus="autofocus"/>
+				</div>
+				<div class="form-group"> 
+					<input type="number" class="form-control" id="carYear" name="carYear" placeholder="Vehicle Year" autofocus="autofocus"/>
+				</div>
+				<!-- <div class="form-group"> 
+					<input type="text" class="form-control" id="carClass" name="carClass" placeholder="Vehicle Class" autofocus="autofocus"/>
+				</div> -->
+				<select type="text" class="form-control" id="carClass" name="carClass" placeholder="Vehicle Class" required autofocus="autofocus">
+                    <option value="Select a Car Classification" disabled >Select a Car Classification</option>
+                    <option value="Touring">Touring</option>
+                    <option value="B Spec">B Spec</option>
+                    <option value="Production">Production</option>
+                    <option value="Super Touring">Super Touring</option>
+                    <option value="Grand Touring">Grand Touring</option>
+                    <option value="Formula">Formula</option>
+                    <option value="Spec Miata">Spec Miata</option>
+                    <option value="Sports Racing">Sports Racing</option>
+                    <option value="Sedan">Sedan</option>
+                </select>
+				<div class="form-group"> 
+					<input type="text" class="form-control" id="licensePlateNum" name="licensePlateNum" placeholder="Vehicle License Plate Number" autofocus="autofocus"/>
+				</div>
+				
+				<div class="form-group">
+					<button type="submit" class="btn btn-success">Add vehicle!</button>
+				</div>
+			</form>
+			</div>
+		</div>
+	</div>
+	<!-- <H1><span th:text="${newCar}"> </span></H1> -->
+</body>
+</html>

@@ -15,19 +15,18 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aira-controls="navbar">
+				aria-controls="navbar">
 				<span class="sr-only">Toggle Navigation</span> <span
 				class="icon-bar"></span><span class="icon-bar"></span><span
 				class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
+				<a class="navbar-brand" href="/" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/carregistration}">Register a Car</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">New! My Garage</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
@@ -39,10 +38,47 @@
 
 	<div class="container"><br>
 	
-	<span th:text="${firstName}">default</span>
-	<h2>Your Cars:</h2>
+	<h2><span th:text="${user.getFirstName()}">default</span>'s Garage:</h2>
+	<br>
 	
-
+	<table class="table">
+		<tr>
+		<th> #  </th>
+		<th> Make  </th>
+		<th> Model </th>
+		<th> Year  </th>
+		<th> License </th>
+		<th> Class </th>
+		</tr>
+		
+		<ul th:each="car : ${myGarage}">
+			<tr>
+				<td><p th:text="${user.findCar(car)}"/></td>
+				<td><p th:text="${car.getMake()}"/></td> 
+				<td><p th:text="${car.getModel()}"/></td>
+				<td><p th:text="${car.getYear()}"/></td>
+				<td><p th:text="${car.getLicensePlateNum()}"/></td>
+				<td><p th:text="${car.getVehicleClass()}"/></td>
+			</tr>
+		</ul>
+		
+		<!-- <ul th:each="car : ${myGarage}">
+			<tr>
+				<td><p th:text="${car.getMake()}"/></td>
+				<td><p th:text="${car.getModel()}"/></td>
+				<td><p th:text="${car.getYear()}"/></td>
+				<td><p th:text="${car.getVehicleClass()}"/></td>
+			</tr>
+		</ul> -->
+	</table> 
+	
+	<form action="/addCar">
+    <input type="submit" value="Add a car to your garage" class="btn btn-success"/>
+</form>
+<br>
+<form action="/deleteCar">
+    <input type="submit" value="Remove a car from your garage" class="btn btn-danger" />
+</form>
 		
 	</div>
 </body>
