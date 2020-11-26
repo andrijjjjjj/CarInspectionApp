@@ -15,7 +15,7 @@
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle collapsed"
 				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-				aira-controls="navbar">
+				aria-controls="navbar">
 				<span class="sr-only">Toggle Navigation</span> <span
 				class="icon-bar"></span><span class="icon-bar"></span><span
 				class="icon-bar"></span>
@@ -39,10 +39,33 @@
 
 	<div class="container"><br>
 	
-	<span th:text="${firstName}">default</span>
-	<h2>Your Cars:</h2>
+	<h2><span th:text="${user.getFirstName()}">default</span>'s Garage:</h2>
+	<br>
 	
-
+	<table class="table">
+		<tr>
+		<th> Make </th>
+		<th> Model </th>
+		<th> Year</th>
+		<th> Class </th>
+		</tr>
+		
+		<ul th:each="car : ${myGarage}">
+			<tr>
+				<td><p th:text="${car.getMake()}"/></td>
+				<td><p th:text="${car.getModel()}"/></td>
+				<td><p th:text="${car.getYear()}"/></td>
+				<td><p th:text="${car.getVehicleClass()}"/></td>
+			</tr>
+		</ul>
+	</table> 
+	
+	<form action="/addCar">
+    <input type="submit" value="Add a car to your garage" />
+</form>
+<form action="/deleteCar">
+    <input type="submit" value="Remove a car from your garage (not working)" />
+</form>
 		
 	</div>
 </body>

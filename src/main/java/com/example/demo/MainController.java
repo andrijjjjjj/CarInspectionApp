@@ -15,6 +15,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -51,17 +52,20 @@ public class MainController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
 		user = userRepository.findByEmail(Email);
-		model.addAttribute("firstName", user.getFirstName());
+//		model.addAttribute("firstName", user.getFirstName());
+		
+//		model.addAttribute("myGarage", user.getMyGarage());
+		
 		return"index";
 	}
 	
-	@GetMapping("/carregistration")
-	public String carRegistrationForm(Model model) {
-		return "carregistration";
+	@GetMapping("/addCar")
+	public String addCarPre(Model model) {
+		return "addCar";
 	}
 	
-	@PostMapping("/carregistration")
-	public void carRegistrationFormSubmit(
+	@PostMapping("/addCar")
+	public void addCarPost(
 			@RequestParam(value="carMake",required =false) String carMake, 
 			@RequestParam(value="carModel",required =false) String carModel, 
 			@RequestParam(value="carYear",required =false) String carYear,
@@ -71,21 +75,32 @@ public class MainController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		int year = Integer.parseInt(carYear);
 		
+		
+		String newCar = year+" "+carMake+" "+carModel+" "+"("+carClass+") was added to your garage!";
+//		model.addAttribute("newCar", newCar);
+		
 		String Email = auth.getName();
 
 		user = userRepository.findByEmail(Email);
-		System.out.println(carMake+"\n"+carModel+"\n"+year+"\n"+carClass);
+		
+//		System.out.println(carMake+"\n"+carModel+"\n"+year+"\n"+carClass);
 		user.addCar(carMake, carModel, year, carClass);
-		user.listCarsInGarage();
+		
+		System.out.println(newCar);
+//		System.out.println(user.listCarsInGarage());
+		userRepository.save(user);
 	}
 	
+	// not working
 	@GetMapping("/myGarage")
 	public String myGarage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
 
 		user = userRepository.findByEmail(Email);
-		model.addAttribute("garageList", user.getGarageList());
+//		model.addAttribute("garageList", user.getGarageList());
+		model.addAttribute("user", user);
+		model.addAttribute("myGarage", user.getMyGarage());
 		return "myGarage";
 	}
 

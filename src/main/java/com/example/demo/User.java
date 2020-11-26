@@ -85,17 +85,20 @@ public class User {
 	}
 	
 	public void removeCar(int orderInGarage) {
-		myGarage.remove(orderInGarage-1);
+//		myGarage.remove(orderInGarage-1);
+		myGarage.remove(orderInGarage);
 	}
 	
-	public void listCarsInGarage() {
-		for(int i = 0; i < myGarage.size(); i++) {
-			System.out.println("Car #"+(i+1)+" - "+myGarage.get(i).getYear()+" "+myGarage.get(i).getMake()+" "+myGarage.get(i).getModel()+" (Class "+myGarage.get(i).getVehicleClass()+")");
-		}
-	}
+//	public String listCarsInGarage() {
+//		String cars ="";
+//		for(int i = 0; i < myGarage.size(); i++) {
+////			System.out.println("Car #"+(i+1)+" - "+myGarage.get(i).getYear()+" "+myGarage.get(i).getMake()+" "+myGarage.get(i).getModel()+" (Class "+myGarage.get(i).getVehicleClass()+")");
+//			cars += myGarage.get(i).getYear()+" "+myGarage.get(i).getMake()+" "+myGarage.get(i).getModel()+" ("+myGarage.get(i).getVehicleClass()+")"+"\n";
+//		}
+//		return cars;
+//	}
 	
-	public ArrayList<Car> getGarageList()
-	{
+	public ArrayList<Car> getMyGarage() {
 		return myGarage;
 	}
 	

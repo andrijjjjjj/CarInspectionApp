@@ -24,8 +24,8 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/}">Index</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/carregistration}">Register a Car</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">New! My Garage</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
@@ -41,28 +41,30 @@
 		<div class = "row">
 			<div class ="col-md-6 col-md-offset-3">
 			
-			<h1>Car Registration</h1>
-			<form th:action="@{/carregistration}" method="post">
+			<h1>Add a vehicle</h1>
+			<p>Currently Car object has serialization error. Max of 4 cars can be added</p>
+			<form th:action="@{/addCar}" method="post">
 			
 				<div class="form-group"> 
-					<input type="text" class="form-control" id="carMake" name="carMake" placeholder="Car Manufacturer" autofocus="autofocus"/>
+					<input type="text" class="form-control" id="carMake" name="carMake" placeholder="Vehicle Manufacturer" autofocus="autofocus"/>
 				</div>
 				<div class="form-group"> 
-					<input type="text" class="form-control" id="carModel" name="carModel" placeholder="Car Model" autofocus="autofocus"/>
+					<input type="text" class="form-control" id="carModel" name="carModel" placeholder="Vehicle Model" autofocus="autofocus"/>
 				</div>
 				<div class="form-group"> 
-					<input type="text" class="form-control" id="carYear" name="carYear" placeholder="Car Year" autofocus="autofocus"/>
+					<input type="text" class="form-control" id="carYear" name="carYear" placeholder="Vehicle Year" autofocus="autofocus"/>
 				</div>
 				<div class="form-group"> 
-					<input type="text" class="form-control" id="carClass" name="carClass" placeholder="Car Class" autofocus="autofocus"/>
+					<input type="text" class="form-control" id="carClass" name="carClass" placeholder="Vehicle Class" autofocus="autofocus"/>
 				</div>
 				
 				<div class="form-group">
-					<button type="submit" class="btn btn-success">Register</button>
+					<button type="submit" class="btn btn-success">Add vehicle!</button>
 				</div>
 			</form>
 			</div>
 		</div>
 	</div>
+	<!-- <H1><span th:text="${newCar}"> </span></H1> -->
 </body>
 </html>
