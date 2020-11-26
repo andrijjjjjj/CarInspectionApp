@@ -115,6 +115,18 @@ public class User {
 		return index+1;
 	}
 	
+	public int findCarByLicense(String x) {
+		int index = 0;
+		for(int i = 0; i < myGarage.size(); i++)
+		{
+			if(myGarage.get(i).getLicensePlateNum() == x)
+			{
+				index = i;
+			}
+		}
+		return index+1;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -207,11 +219,11 @@ public class User {
 	public String getUserImagePath(){
 //		if (photo == null || id == null) return null;
 //		
-//		return "/user-logos/" + id + "/" + photo;
+//		return "/pictures/" + id + "/" + photo;
 		if (photo == null || id == null) {
 			return "defaultUserLogo.png";
 		}
 		
-		return "/user-logos/" + id + "/" + photo;
+		return "/pictures/" + id + "/profile/" + photo;
 	}
 }

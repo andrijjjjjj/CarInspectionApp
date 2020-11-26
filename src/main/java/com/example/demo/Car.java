@@ -74,9 +74,10 @@ public class Car implements Serializable{
 	public String getCarImagePath(){
 		if (carPhoto == null) return null;
 		
-//		return "/user-logos/" + licensePlateNum + "/" + carPhoto;
-		//return "/user-logos/" + id + "/" + photo;
+//		return "/pictures/" + licensePlateNum + "/" + carPhoto;
+		//return "/pictures/" + id + "/" + photo;
+//		"/pictures/" + id + "/profile/" + photo;
 		
-		return "/user-logos/" + id + "/" + licensePlateNum + "/" + carPhoto;
+		return "/pictures/" + id + "/cars/" + licensePlateNum + "/" + carPhoto;
 	}
 }
