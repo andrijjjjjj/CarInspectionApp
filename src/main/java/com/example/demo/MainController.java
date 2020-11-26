@@ -92,7 +92,7 @@ public class MainController {
 		userRepository.save(user);
 	}
 	
-	// not working
+	
 	@GetMapping("/myGarage")
 	public String myGarage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -126,10 +126,22 @@ public class MainController {
 		user = userRepository.findByEmail(Email);
 		
 		int carIndex = Integer.parseInt(index);
-		user.removeCar(carIndex);
-//		user.getMyGarage().get(0).getLicensePlateNum();
-//		user.findCar(x)
-		userRepository.save(user);
+		
+		if(carIndex <= user.getMyGarage().size() && carIndex > 0)
+		{
+			System.out.println(	user.getMyGarage().get(carIndex-1).getYear()+" "+
+								user.getMyGarage().get(carIndex-1).getMake()+" "+
+								user.getMyGarage().get(carIndex-1).getModel()+" ("+
+								user.getMyGarage().get(carIndex-1).getVehicleClass()+") ["+
+								user.getMyGarage().get(carIndex-1).getLicensePlateNum()+"] was removed from your garage!");
+			user.removeCar(carIndex);
+			userRepository.save(user);
+		}
+		else {
+			System.out.println("Illegal vehicle number (index) provided by user!\nNo car was removed from garage!\n");
+		}
+		
+		
 		return "deleteCar"; // change to mygarage
 	}
 	

@@ -53,9 +53,21 @@
 				<div class="form-group"> 
 					<input type="number" class="form-control" id="carYear" name="carYear" placeholder="Vehicle Year" autofocus="autofocus"/>
 				</div>
-				<div class="form-group"> 
+				<!-- <div class="form-group"> 
 					<input type="text" class="form-control" id="carClass" name="carClass" placeholder="Vehicle Class" autofocus="autofocus"/>
-				</div>
+				</div> -->
+				<select type="text" class="form-control" id="carClass" name="carClass" placeholder="Vehicle Class" required autofocus="autofocus">
+                    <option value="Select a Car Classification" disabled >Select a Car Classification</option>
+                    <option value="Touring">Touring</option>
+                    <option value="B Spec">B Spec</option>
+                    <option value="Production">Production</option>
+                    <option value="Super Touring">Super Touring</option>
+                    <option value="Grand Touring">Grand Touring</option>
+                    <option value="Formula">Formula</option>
+                    <option value="Spec Miata">Spec Miata</option>
+                    <option value="Sports Racing">Sports Racing</option>
+                    <option value="Sedan">Sedan</option>
+                </select>
 				<div class="form-group"> 
 					<input type="text" class="form-control" id="licensePlateNum" name="licensePlateNum" placeholder="Vehicle License Plate Number" autofocus="autofocus"/>
 				</div>
