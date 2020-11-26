@@ -187,7 +187,7 @@ public class MainController {
 		String Email = auth.getName();
 		User savedUser = userRepository.findByEmail(Email);
 		savedUser.setPhoto(fileName);
-		userRepository.save(user);
+		userRepository.save(savedUser);
 		String uploadDir = "./src/main/resources/static/user-logos/" + savedUser.getId();
 		Path uploadPath = Paths.get(uploadDir);
 		
