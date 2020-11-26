@@ -1,0 +1,42 @@
+Andrij Pokhvalit
+11/25/2020
+IT 391
+
+								*** This note is for all future users and team members. ***
+
+ERROR:
+-------------------------------------------------------------------------------------------------------------------------------
+	Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; 
+	nested exception is org.springframework.orm.jpa.JpaSystemException: could not deserialize; 
+	nested exception is org.hibernate.type.SerializationException: could not deserialize] with root cause
+	java.io.EOFException: null
+-------------------------------------------------------------------------------------------------------------------------------
+
+PROBLEM: 
+-------------------------------------------------------------------------------------------------------------------------------
+	Several Car objects can fill up the allocated space in a SQL table column based on the data type the column is using.
+	To fix this we need to expand the memory allocated. We will transition from BLOB to LONGBLOB giving us 4GB of room.
+-------------------------------------------------------------------------------------------------------------------------------
+
+FIX:
+-------------------------------------------------------------------------------------------------------------------------------
+	1. Shut down the project (not your IDE)
+	
+	2. Open the SQL Terminal & login
+	
+	3. Check that 'mysql>' is present on terminal window
+	
+	4. Enter command: 'create DATABASE carclubdb;'
+	
+	5. Enter command: 'USE carclubdb'
+		
+	6. Now run the project without signing in or registering! Once booted up successfully, shut it down.
+	 
+	7. This will create all the tables and columns we will be using!
+	
+	8. Enter command: ALTER TABLE user MODIFY my_garage LONGBLOB;
+		
+	9. You are done! Type 'exit' to leave the mysql terminal
+	
+	10. Run the project again and you can enter more cars now!
+-------------------------------------------------------------------------------------------------------------------------------
