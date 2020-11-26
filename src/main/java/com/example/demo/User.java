@@ -79,14 +79,14 @@ public class User {
 		this.isSigned = isSigned;
 	}
 
-	public void addCar(String make, String model, int year, String vehicleClass) {
-		 Car newCar = new Car(make, model, year, vehicleClass);
+	public void addCar(String make, String model, int year, String vehicleClass, String licensePlateNum) {
+		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum);
 		 myGarage.add(newCar);
 	}
 	
 	public void removeCar(int orderInGarage) {
-//		myGarage.remove(orderInGarage-1);
-		myGarage.remove(orderInGarage);
+		myGarage.remove(orderInGarage-1);
+//		myGarage.remove(orderInGarage);
 	}
 	
 //	public String listCarsInGarage() {
@@ -100,6 +100,19 @@ public class User {
 	
 	public ArrayList<Car> getMyGarage() {
 		return myGarage;
+	}
+	
+	// use only for deleteCar!
+	public int findCar(Car x) {
+		int index = 0;
+		for(int i = 0; i < myGarage.size(); i++)
+		{
+			if(myGarage.get(i).getLicensePlateNum() == x.getLicensePlateNum())
+			{
+				index = i;
+			}
+		}
+		return index+1;
 	}
 	
 	public Long getId() {

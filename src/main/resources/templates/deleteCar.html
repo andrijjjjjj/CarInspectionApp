@@ -39,12 +39,12 @@
 
 	<div class="container"><br>
 	
-	<h2><span th:text="${user.getFirstName()}">default</span>'s Garage:</h2>
+	<h2>delete a vehicle:</h2>
 	<br>
 	
-	<table class="table">
+		<table class="table">
 		<tr>
-		<th> #  </th>
+		<th> Vehicle #  </th>
 		<th> Make  </th>
 		<th> Model </th>
 		<th> Year  </th>
@@ -62,24 +62,20 @@
 				<td><p th:text="${car.getVehicleClass()}"/></td>
 			</tr>
 		</ul>
-		
-		<!-- <ul th:each="car : ${myGarage}">
-			<tr>
-				<td><p th:text="${car.getMake()}"/></td>
-				<td><p th:text="${car.getModel()}"/></td>
-				<td><p th:text="${car.getYear()}"/></td>
-				<td><p th:text="${car.getVehicleClass()}"/></td>
-			</tr>
-		</ul> -->
 	</table> 
 	
-	<form action="/addCar">
-    <input type="submit" value="Add a car to your garage" />
-</form>
-<form action="/deleteCar">
-    <input type="submit" value="Remove a car from your garage (not working)" />
-</form>
+	<p>Select a vehicle by typing its vehicle number & submitting</p>
+	
+	<form th:action="@{/deleteCar}" method="post">
+			
+		<div class="form-group"> 
+			<input type="number" class="form-control" id="index" name="index" placeholder="Vehicle #" autofocus="autofocus"/>
+		</div>
 		
+		<div class="form-group">
+			<button type="submit" class="btn btn-success">Delete vehicle</button>
+		</div>
+	</form>
 	</div>
 </body>
 </html>
