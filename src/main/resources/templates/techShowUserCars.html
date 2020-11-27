@@ -27,6 +27,7 @@
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
+			<li><a th:href="@{/TechHomepage}">Tech</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
@@ -61,6 +62,7 @@
 				<td><p th:text="${car.getLicensePlateNum()}"/></td>
 				<td><p th:text="${car.getVehicleClass()}"/></td>
 				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
+				<td><a class="btn btn-primary" th:href="@{/techInspection}" role="button">Inspection Checklist</a></td>
 			</tr>
 		</ul>
 		

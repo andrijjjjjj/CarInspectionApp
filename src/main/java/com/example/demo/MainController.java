@@ -281,4 +281,10 @@ public class MainController {
 		model.addAttribute("myGarage", user.getMyGarage());
 		return "techShowUserCars";
 	}
+	
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/techInspection")
+	public String techInspection() {
+		return "techInspection";
+	}
 }
