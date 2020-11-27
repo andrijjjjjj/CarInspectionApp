@@ -27,7 +27,6 @@
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
-			<li><a th:href="@{/TechHomepage}">Tech</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
@@ -36,28 +35,44 @@
 	
 	<br>
 	<br>
-	<br>
-	<div class="container">
-	<table class="table">
-	<tr>
-	<th> ID </th>
-	<th> First Name </th>
-	<th> Last Name </th>
-	<th> Email </th>
 
-	</tr>
+	<div class="container"><br>
 	
-	<tr th:each="user: ${user}">
-	<td th:text="${user.id}"/>
-	<td th:text="${user.firstName}"/>
-	<td th:text="${user.lastName}"/>
-	<td th:text="${user.email}"/>
-	<!-- Show cars for logged in user but need to figure out how to make it show for user  -->
-	<td> <a class="btn btn-primary" th:href="@{/techShowUserCars/{id} (id = ${user.id})}" role="button">Show Garage</a> </td>
-	</tr>
-	
-	</table>
+	<h2><span th:text="${user.getFirstName()}">default</span>'s Garage:</h2>
 	<br>
-	</div>
+	
+	<table class="table">
+		<tr>
+		<th> #  </th>
+		<th> Make  </th>
+		<th> Model </th>
+		<th> Year  </th>
+		<th> License </th>
+		<th> Class </th>
+		<th> Photo </th>
+		</tr>
+		
+		<ul th:each="car : ${myGarage}">
+			<tr>
+				<td><p th:text="${user.findCar(car)}"/></td>
+				<td><p th:text="${car.getMake()}"/></td> 
+				<td><p th:text="${car.getModel()}"/></td>
+				<td><p th:text="${car.getYear()}"/></td>
+				<td><p th:text="${car.getLicensePlateNum()}"/></td>
+				<td><p th:text="${car.getVehicleClass()}"/></td>
+				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
+			</tr>
+		</ul>
+		
+		<!-- <ul th:each="car : ${myGarage}">
+			<tr>
+				<td><p th:text="${car.getMake()}"/></td>
+				<td><p th:text="${car.getModel()}"/></td>
+				<td><p th:text="${car.getYear()}"/></td>
+				<td><p th:text="${car.getVehicleClass()}"/></td>
+			</tr>
+		</ul> -->
+	</table> 
+
 </body>
 </html>

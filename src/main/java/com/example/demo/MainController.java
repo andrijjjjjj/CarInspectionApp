@@ -28,6 +28,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -268,5 +269,16 @@ public class MainController {
 		
 		model.addAttribute("user", userRepository.findAll());
 		return "techShowUser";
+	}
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/techShowUserCars/{id}")
+	public String techShowUserCars(@PathVariable("id") long id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String Email = auth.getName();
+
+		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));;
+		model.addAttribute("user", user);
+		model.addAttribute("myGarage", user.getMyGarage());
+		return "techShowUserCars";
 	}
 }
