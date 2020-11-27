@@ -8,7 +8,7 @@
 
 **Purpose:** Help technicians, administrators, and club members manage their vehicles and waivers for safe track experiences.
 
-**Team members:** apokhva, ZeroSixteen, ldjohn1995
+**Team members:** apokhva, ZeroSixteen
 
 
 ## Notes:
