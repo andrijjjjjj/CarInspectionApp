@@ -17,7 +17,10 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -221,6 +224,30 @@ public class MainController {
 		
 		System.out.println("this thing is working");
 		return "redirect:/uploadimage?success";
+	} 
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/adminPage")
+	public String adminPage(Model model) {
+		List<User> listUsers = new ArrayList<>();
+		userRepository.findAll().forEach(user -> listUsers.add(user));
+		
+		model.addAttribute("user", userRepository.findAll());
+		return "adminPage";
+	}
+	@GetMapping("/deleteUser")
+	public String showDeleteUser(Model model) {
+		List<User> listUsers = new ArrayList<>();
+		userRepository.findAll().forEach(user -> listUsers.add(user));
+		model.addAttribute("user", userRepository.findAll());
+		return "deleteUser";
+	}
+	
+	@PostMapping("/deleteUser")
+	public void deleteUser(Model model, Long id) {
+		model.addAttribute("id", id);
+	    User delUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	    userRepository.delete(delUser);
 	} 
 	
 }

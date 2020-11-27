@@ -24,27 +24,45 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 			<ul class="nav navbar-nav">
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/}">Index</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/deleteUser}">Delete User</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-			<li><a th:href="@{/adminPage}">Admin</a></li>
 			</ul>
 			</div>	
 		</div>
 	</nav>
 	
-	
 	<br>
 	<br>
-
+	<br>
 	<div class="container">
-
-	<h2>Welcome back <span th:text="${firstName}">default</span>!</h2>
-	<img th:src="${photo}" style="width:10em; height: 10em;">
+	<table class="table">
+	<tr>
+	<th> ID </th>
+	<th> First Name </th>
+	<th> Last Name </th>
+	<th> Email </th>
+	<th> Waiver Signed? </th>
+	</tr>
+	
+	<tr th:each="user: ${user}">
+	<td th:text="${user.id}"/>
+	<td th:text="${user.firstName}"/>
+	<td th:text="${user.lastName}"/>
+	<td th:text="${user.email}"/>
+	<td th:text="${user.isSigned}"/>
+	</tr>
+	
+	</table>
 	<br>
-		
+	<input type="submit" value="Add a user" class="btn btn-success"/>
+	<br>
+	<br>
+	<form method="get" th:action="@{/deleteUser}">
+    <input type="submit" value="Remove a user" class="btn btn-danger"/>
+    </form>
 	</div>
 </body>
 </html>
