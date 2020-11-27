@@ -27,42 +27,20 @@
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
-			<li><a th:href="@{/AdminHomepage}">Admin</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
 		</div>
 	</nav>
-	
-	<br>
-	<br>
-	<br>
 	<div class="container">
-	<table class="table">
-	<tr>
-	<th> ID </th>
-	<th> First Name </th>
-	<th> Last Name </th>
-	<th> Email </th>
-	<th> Waiver Signed? </th>
-	</tr>
-	
-	<tr th:each="user: ${user}">
-	<td th:text="${user.id}"/>
-	<td th:text="${user.firstName}"/>
-	<td th:text="${user.lastName}"/>
-	<td th:text="${user.email}"/>
-	<td th:text="${user.isSigned}"/>
-	</tr>
-	
-	</table>
-	
-	
-	<form th:action="@{/deleteUser}" method="post">
- <!-- adding th:field crashes the program for some reason if you can figure it out before i wake up go for it -->
-	<input type="text" name="id" id="id" class="form-control" placeholder="User ID" autofocus="autofocus"/>
-	<button type="submit" class="btn btn-danger">Delete User</button>
-	</form>    
-
+	<div class="jumbotron jumbotron-fluid">
+  <h1 class="display-4">Welcome Admin!</h1>
+  <hr class="my-4">
+  <p></p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" th:href="@{/adminPage}" role="button">Manage Users</a>
+  </p>
+</div>
+</div>
 </body>
 </html>

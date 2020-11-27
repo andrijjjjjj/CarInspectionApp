@@ -27,7 +27,7 @@
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
-			<li><a th:href="@{/AdminHomepage}">Admin</a></li>
+			<li><a th:href="@{/TechHomepage}">Tech</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
@@ -44,7 +44,7 @@
 	<th> First Name </th>
 	<th> Last Name </th>
 	<th> Email </th>
-	<th> Waiver Signed? </th>
+
 	</tr>
 	
 	<tr th:each="user: ${user}">
@@ -52,17 +52,12 @@
 	<td th:text="${user.firstName}"/>
 	<td th:text="${user.lastName}"/>
 	<td th:text="${user.email}"/>
-	<td th:text="${user.isSigned}"/>
+	<!-- Show cars button does nothing yet but is there -->
+	<td> <button class="btn btn-primary">Show Cars</button> </td>
 	</tr>
 	
 	</table>
-	
-	
-	<form th:action="@{/deleteUser}" method="post">
- <!-- adding th:field crashes the program for some reason if you can figure it out before i wake up go for it -->
-	<input type="text" name="id" id="id" class="form-control" placeholder="User ID" autofocus="autofocus"/>
-	<button type="submit" class="btn btn-danger">Delete User</button>
-	</form>    
-
+	<br>
+	</div>
 </body>
 </html>

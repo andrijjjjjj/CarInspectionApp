@@ -235,6 +235,7 @@ public class MainController {
 		model.addAttribute("user", userRepository.findAll());
 		return "adminPage";
 	}
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/deleteUser")
 	public String showDeleteUser(Model model) {
 		List<User> listUsers = new ArrayList<>();
@@ -244,10 +245,28 @@ public class MainController {
 	}
 	
 	@PostMapping("/deleteUser")
-	public void deleteUser(Model model, Long id) {
-		model.addAttribute("id", id);
+	public void deleteUser(@RequestParam(value="id",required =false)Long id, Model model ) {
+		
 	    User delUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 	    userRepository.delete(delUser);
 	} 
-	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/AdminHomepage")
+	public String AdminHomepage() {
+		return "AdminHomepage";
+	}
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/TechHomepage")
+	public String TechHomepage() {
+		return "TechHomepage";
+	}
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/techShowUser")
+	public String techShowUser(Model model){
+		List<User> listUsers = new ArrayList<>();
+		userRepository.findAll().forEach(user -> listUsers.add(user));
+		
+		model.addAttribute("user", userRepository.findAll());
+		return "techShowUser";
+	}
 }

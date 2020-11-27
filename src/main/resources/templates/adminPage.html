@@ -27,7 +27,7 @@
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
-			<li sec:authorize="isAuthenticated()"><a th:href="@{/deleteUser}">Delete User</a></li>
+			<li><a th:href="@{/AdminHomepage}">Admin</a></li>
 			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
 			</ul>
 			</div>	
@@ -45,6 +45,7 @@
 	<th> Last Name </th>
 	<th> Email </th>
 	<th> Waiver Signed? </th>
+
 	</tr>
 	
 	<tr th:each="user: ${user}">
@@ -57,8 +58,9 @@
 	
 	</table>
 	<br>
+	<form method="get" th:action="@{/addUser}">
 	<input type="submit" value="Add a user" class="btn btn-success"/>
-	<br>
+	</form>
 	<br>
 	<form method="get" th:action="@{/deleteUser}">
     <input type="submit" value="Remove a user" class="btn btn-danger"/>
