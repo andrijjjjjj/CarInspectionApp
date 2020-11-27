@@ -51,8 +51,8 @@ public class MainController {
 	public String home(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
-		user = userRepository.findByEmail(Email);
-//		model.addAttribute("firstName", user.getFirstName());
+		user = userRepository.findByEmail(Email); // new!! andrij
+		model.addAttribute("user", user); // new!! andrij
 		
 //		model.addAttribute("myGarage", user.getMyGarage());
 		model.addAttribute("photo", user.getUserImagePath());
@@ -79,8 +79,10 @@ public class MainController {
 		
 		String carPhoto;
 		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+		fileName = licensePlateNum+"ProfilePic.jpg";
 		carPhoto = fileName;
-		String uploadDir = "./src/main/resources/static/user-logos/" + licensePlateNum;
+//		"/pictures/" + id + "/profile/" + photo;
+		String uploadDir = "./src/main/resources/static/pictures/" + user.getId() + "/cars/" + licensePlateNum;
 		Path uploadPath = Paths.get(uploadDir);
 		if(!Files.exists(uploadPath)) {
 			Files.createDirectories(uploadPath);
@@ -198,13 +200,18 @@ public class MainController {
 
 	@PostMapping("/saveUserPic")
 	public String saveUser(@ModelAttribute(name = "user")User user, @RequestParam("driverImage") MultipartFile multipartFile) throws IOException{
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//		String fileName = "profilepic"+StringUtils.cleanPath(multipartFile.getOriginalFilename().substring(multipartFile.getOriginalFilename().lastIndexOf(".")));
+		String fileName = "profilepic.jpg";
+
+//		fileName = user.getFirstName()+"profilepic";
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
 		User savedUser = userRepository.findByEmail(Email);
+//		String filename = p.getId()+"."+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
 		savedUser.setPhoto(fileName);
 		userRepository.save(savedUser);
-		String uploadDir = "./src/main/resources/static/user-logos/" + savedUser.getId();
+//		"/pictures/" + id + "/profile/" + photo;
+		String uploadDir = "./src/main/resources/static/pictures/" + savedUser.getId() + "/profile/";
 		Path uploadPath = Paths.get(uploadDir);
 		
 		if(!Files.exists(uploadPath)) {

@@ -80,7 +80,7 @@ public class User {
 	}
 
 	public void addCar(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto) {
-		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum, carPhoto);
+		 Car newCar = new Car(make, model, year, vehicleClass, licensePlateNum, carPhoto, id);
 		 myGarage.add(newCar);
 	}
 	
@@ -108,6 +108,18 @@ public class User {
 		for(int i = 0; i < myGarage.size(); i++)
 		{
 			if(myGarage.get(i).getLicensePlateNum() == x.getLicensePlateNum())
+			{
+				index = i;
+			}
+		}
+		return index+1;
+	}
+	
+	public int findCarByLicense(String x) {
+		int index = 0;
+		for(int i = 0; i < myGarage.size(); i++)
+		{
+			if(myGarage.get(i).getLicensePlateNum() == x)
 			{
 				index = i;
 			}
@@ -205,8 +217,13 @@ public class User {
 	
 	@Transient
 	public String getUserImagePath(){
-		if (photo == null || id == null) return null;
+//		if (photo == null || id == null) return null;
+//		
+//		return "/pictures/" + id + "/" + photo;
+		if (photo == null || id == null) {
+			return "defaultUserLogo.png";
+		}
 		
-		return "/user-logos/" + id + "/" + photo;
+		return "/pictures/" + id + "/profile/" + photo;
 	}
 }
