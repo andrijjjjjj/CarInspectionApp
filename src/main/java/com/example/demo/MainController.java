@@ -46,6 +46,12 @@ public class MainController {
 		return "login";
 	}
 	
+	// new andrij
+	@PostMapping("/login")
+	public String loginPost() {
+		return "index";
+	}
+	
 	
 	@GetMapping("/")
 	public String home(Model model) {
@@ -55,7 +61,7 @@ public class MainController {
 		model.addAttribute("user", user); // new!! andrij
 		
 //		model.addAttribute("myGarage", user.getMyGarage());
-		model.addAttribute("photo", user.getUserImagePath());
+//		model.addAttribute("photo", user.getUserImagePath());
 		return"index";
 	}
 	
@@ -64,6 +70,7 @@ public class MainController {
 		return "addCar";
 	}
 	
+	// modified nov 27, 2020 andrij
 	@PostMapping("/addCar")
 	public void addCarPost(
 			@RequestParam(value="carMake",required =false) String carMake, 
@@ -74,39 +81,85 @@ public class MainController {
 			@RequestParam(value="carPhoto", required =false) MultipartFile multipartFile,
 			Model model) throws IOException {
 		
+		// Security authenticator
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		// Convert year from String to int
 		int year = Integer.parseInt(carYear);
 		
-		String carPhoto;
-		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-		fileName = licensePlateNum+"ProfilePic.jpg";
-		carPhoto = fileName;
-//		"/pictures/" + id + "/profile/" + photo;
-		String uploadDir = "./src/main/resources/static/pictures/" + user.getId() + "/cars/" + licensePlateNum;
+		String carPhoto = null, fileName, uploadDir, newCar;
+		uploadDir = "./src/main/resources/static/pictures/" + user.getId() + "/cars/" + licensePlateNum;
 		Path uploadPath = Paths.get(uploadDir);
-		if(!Files.exists(uploadPath)) {
+		if(!Files.exists(uploadPath)) 
+		{
 			Files.createDirectories(uploadPath);
 		}
 		
-		try(InputStream inputStream = multipartFile.getInputStream()){;
-		Path filePath = uploadPath.resolve(fileName);
-		System.out.println(filePath.toString());
-		Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
-		}catch(IOException e) {
-			throw new IOException("Could not save uploaded file: " + fileName);
+		// photo logic:
+		if(multipartFile.isEmpty())
+		{
+			// if no photo uploaded
+			
+			// if directory doesn't exist, create it!
+//			if(!Files.exists(uploadPath)) 
+//			{
+//				Files.createDirectories(uploadPath);
+//			}
+			System.out.println("No photo uploaded.");
 		}
-		String newCar = year+" "+carMake+" "+carModel+" "+"("+carClass+") ["+licensePlateNum+" "+carPhoto+ "] was added to your garage!";
-//		model.addAttribute("newCar", newCar);
+		else
+		{
+			// if photo uploaded
+			fileName = licensePlateNum+"ProfilePic.jpg";
+			carPhoto = fileName;
+			try(InputStream inputStream = multipartFile.getInputStream())
+			{
+				Path filePath = uploadPath.resolve(fileName);
+				System.out.println(filePath.toString());
+				Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
+			}
+			catch(IOException e) 
+			{
+				throw new IOException("Could not save uploaded file: " + fileName);
+			}
+		}
+		
+		
+		
+		
+		
+		
+//		String carPhoto = null;
+//		
+//		String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+//		fileName = licensePlateNum+"ProfilePic.jpg";
+//		carPhoto = fileName;
+//
+//		String uploadDir = "./src/main/resources/static/pictures/" + user.getId() + "/cars/" + licensePlateNum;
+//		Path uploadPath = Paths.get(uploadDir);
+//		if(!Files.exists(uploadPath)) {
+//			Files.createDirectories(uploadPath);
+//		}
+//		
+//		try(InputStream inputStream = multipartFile.getInputStream()){;
+//		Path filePath = uploadPath.resolve(fileName);
+//		System.out.println(filePath.toString());
+//		Files.copy(inputStream,filePath, StandardCopyOption.REPLACE_EXISTING);
+//		}catch(IOException e) {
+//			throw new IOException("Could not save uploaded file: " + fileName);
+//		}
+		
+		newCar = year+" "+carMake+" "+carModel+" "+"("+carClass+") ["+licensePlateNum+" "+carPhoto+ "] was added to your garage!";
+
+		
+		
+		
+		
 		
 		String Email = auth.getName();
-
 		user = userRepository.findByEmail(Email);
-	
-//		System.out.println(carMake+"\n"+carModel+"\n"+year+"\n"+carClass);
 		user.addCar(carMake, carModel, year, carClass, licensePlateNum,carPhoto);
-		
 		System.out.println(newCar);
-//		System.out.println(user.listCarsInGarage());
 		userRepository.save(user);
 	}
 	

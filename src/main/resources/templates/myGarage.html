@@ -1,21 +1,26 @@
+<!-- THIS IS A TEMPLATE HTML PAGE FOR ALL WEBPAGES! COPY/PASTE THIS FOR ALL FUTURE PAGES! -->
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-<meta charset="ISO-8859-1">
-<title>CCSCC Car Inspection and Waiver App</title>
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-</head>
-<body>
-
-<!-- import navigation bar (header) new!! andrij -->
-	<div th:insert="Navbar :: navbar">  </div> 
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="UTF-8">
+		<!-- CSS STYLESHEET -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+		<!-- JAVASCRIPT (NAVBAR NEEDS THIS!) -->
+		<script th:href="@{/js/bootstrap.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		
+		<title>CCSCC: My garage</title>
+	</head>
 	
-	<br>
-	<br>
-
-	<div class="container"><br>
+	<body>
+		<!-- Navigation bar (stored externally in Navbar.html) -->
+		<div th:insert="Navbar :: navbar"></div> 
+		<!-- DONT DELETE -->
+		
+		<!-- Add content here: -->
+		<div class="container"><br>
 	
 	<h2><span th:text="${user.getFirstName()}">default</span>'s Garage:</h2>
 	<br>
@@ -42,15 +47,6 @@
 				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
 			</tr>
 		</ul>
-		
-		<!-- <ul th:each="car : ${myGarage}">
-			<tr>
-				<td><p th:text="${car.getMake()}"/></td>
-				<td><p th:text="${car.getModel()}"/></td>
-				<td><p th:text="${car.getYear()}"/></td>
-				<td><p th:text="${car.getVehicleClass()}"/></td>
-			</tr>
-		</ul> -->
 	</table> 
 	
 	<form action="/addCar">
@@ -62,5 +58,6 @@
 </form>
 		
 	</div>
-</body>
+		
+	</body>
 </html>
