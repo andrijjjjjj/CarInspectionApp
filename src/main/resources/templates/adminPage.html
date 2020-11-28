@@ -54,6 +54,7 @@
 	<td th:text="${user.lastName}"/>
 	<td th:text="${user.email}"/>
 	<td th:text="${user.isSigned}"/>
+	<td> <a class="btn btn-primary" th:href="@{/changeRole/{id} (id = ${user.id})}" role="button">Change Role</a> </td>
 	</tr>
 	
 	</table>

@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
@@ -42,6 +43,9 @@ public class MainController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	RoleRepository roleRepository;
 	
 	User user;
 	
@@ -276,7 +280,7 @@ public class MainController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String Email = auth.getName();
 
-		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));;
+		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 		model.addAttribute("user", user);
 		model.addAttribute("myGarage", user.getMyGarage());
 		return "techShowUserCars";
@@ -286,5 +290,28 @@ public class MainController {
 	@GetMapping("/techInspection")
 	public String techInspection() {
 		return "techInspection";
+	}
+	long throughputId;
+	
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/changeRole/{id}")
+	public String changeRole(@PathVariable("id") long id, Model model) {
+		String roleName = "";
+		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		model.addAttribute("user", user);
+		throughputId = id;
+		model.addAttribute("roleName", roleName);
+		roleName.toUpperCase();
+		Role role = roleRepository.findById((id)).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		return "changeRole";
+	}
+	@PostMapping("/changeRole")
+	public void postChangeRole(@RequestParam(value="roleName",required =false)String roleName, Model model) {
+		User user = userRepository.findById(throughputId).orElseThrow(() -> new IllegalArgumentException("Invalid at findbyid"));
+		model.addAttribute("uName", user.getFirstName());
+		Role role = roleRepository.findById((throughputId)).orElseThrow(() -> new IllegalArgumentException("Invalid at findbyid"));
+		System.out.println(throughputId);
+		role.setName("ROLE_" + roleName.toUpperCase());
+		roleRepository.save(role);
 	}
 }
