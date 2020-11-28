@@ -42,3 +42,37 @@ FIX:
 	
 	11. Run the project again and you can enter more cars now!
 -------------------------------------------------------------------------------------------------------------------------------
+
+PROBLEM 2:
+-------------------------------------------------------------------------------------------------------------------------------
+	An user needs to be given administrator rights manually during initial database setup. This is simple to do.
+-------------------------------------------------------------------------------------------------------------------------------
+
+FIX:
+-------------------------------------------------------------------------------------------------------------------------------
+	1. Shut down the project (not your IDE)
+	
+	2. Open the SQL Terminal & login
+	
+	3. Check that 'mysql>' is present on terminal window
+	
+	4. Enter command: 'drop DATABASE carclubdb;' (If you have a past one still active)
+	
+	5. Enter command: 'create DATABASE carclubdb;'
+	
+	6. Enter command: 'USE carclubdb'
+		
+	7. Now run the project without signing in or registering! Once booted up successfully, shut it down.
+	 
+	8. This will create all the tables and columns we will be using!
+	
+	9. Enter command: ALTER TABLE user MODIFY my_garage LONGBLOB;
+		
+	10. Start your project and register a user. 
+	
+	11. Go to role table and change the default user role to admin.
+		Options: ROLE_USER, ROLE_TECH, ROLE_ADMIN
+	
+	12. Apply changes, logout, and log back in to see changes.
+	
+-------------------------------------------------------------------------------------------------------------------------------
