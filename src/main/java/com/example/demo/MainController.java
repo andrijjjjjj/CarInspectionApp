@@ -17,7 +17,11 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -25,6 +29,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -38,6 +43,9 @@ public class MainController {
 
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	RoleRepository roleRepository;
 	
 	User user;
 	
@@ -283,4 +291,87 @@ public class MainController {
 		return "redirect:/uploadimage?success";
 	} 
 	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/adminPage")
+	public String adminPage(Model model) {
+		List<User> listUsers = new ArrayList<>();
+		userRepository.findAll().forEach(user -> listUsers.add(user));
+		
+		model.addAttribute("user", userRepository.findAll());
+		return "adminPage";
+	}
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/deleteUser")
+	public String showDeleteUser(Model model) {
+		List<User> listUsers = new ArrayList<>();
+		userRepository.findAll().forEach(user -> listUsers.add(user));
+		model.addAttribute("user", userRepository.findAll());
+		return "deleteUser";
+	}
+	
+	@PostMapping("/deleteUser")
+	public void deleteUser(@RequestParam(value="id",required =false)Long id, Model model ) {
+		
+	    User delUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+	    userRepository.delete(delUser);
+	} 
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/AdminHomepage")
+	public String AdminHomepage() {
+		return "AdminHomepage";
+	}
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/TechHomepage")
+	public String TechHomepage() {
+		return "TechHomepage";
+	}
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/techShowUser")
+	public String techShowUser(Model model){
+		List<User> listUsers = new ArrayList<>();
+		userRepository.findAll().forEach(user -> listUsers.add(user));
+		
+		model.addAttribute("user", userRepository.findAll());
+		return "techShowUser";
+	}
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/techShowUserCars/{id}")
+	public String techShowUserCars(@PathVariable("id") long id, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String Email = auth.getName();
+
+		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		model.addAttribute("user", user);
+		model.addAttribute("myGarage", user.getMyGarage());
+		return "techShowUserCars";
+	}
+	
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/techInspection")
+	public String techInspection() {
+		return "techInspection";
+	}
+	long throughputId;
+	
+	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
+	@GetMapping("/changeRole/{id}")
+	public String changeRole(@PathVariable("id") long id, Model model) {
+		String roleName = "";
+		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		model.addAttribute("user", user);
+		throughputId = id;
+		model.addAttribute("roleName", roleName);
+		roleName.toUpperCase();
+		Role role = roleRepository.findById((id)).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		return "changeRole";
+	}
+	@PostMapping("/changeRole")
+	public void postChangeRole(@RequestParam(value="roleName",required =false)String roleName, Model model) {
+		User user = userRepository.findById(throughputId).orElseThrow(() -> new IllegalArgumentException("Invalid at findbyid"));
+		model.addAttribute("uName", user.getFirstName());
+		Role role = roleRepository.findById((throughputId)).orElseThrow(() -> new IllegalArgumentException("Invalid at findbyid"));
+		System.out.println(throughputId);
+		role.setName("ROLE_" + roleName.toUpperCase());
+		roleRepository.save(role);
+	}
 }

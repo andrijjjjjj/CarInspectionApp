@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>CCSCC Car Inspection and Waiver App</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar (header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle Navigation</span> <span
+				class="icon-bar"></span><span class="icon-bar"></span><span
+				class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
+			<li><a th:href="@{/TechHomepage}">Tech</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+			</div>	
+		</div>
+	</nav>
+<div class="container">
+<br>
+<br>
+<br>
+<h1>2020 CCSCC Tech Inspection Checklist</h1>
+<!-- INSPECTION CHECKLIST -->
+<hr>
+  <div id="container">
+  <h2> Exterior </h2>
+  
+ <p>
+ <input type="checkbox" id="playInWheelBearings" class="form-check-input"> 
+ No Play In Wheel Bearings (Grab tires and wiggle them hard) <br>
+ <input type="checkbox" id="wheelsAreTight" class="form-check-input">
+Wheels are tight and have no visible cracks <br>
+<input type="checkbox" id="hubcapsRemoved" class="form-check-input">
+Hubcaps or center caps removed or firmly secured by lug nuts (if applicable)<br>
+<input type="checkbox" id="tiresInGoodCondition" class="form-check-input">
+Tires must be in good condition with no cords/belts showing or cracks.<br>
+<input type="checkbox" id="tireTreadDepth" class="form-check-input">
+Tire tread depth (as appropriate)<br>
+<input type="checkbox" id="brakePadsGoodCondition" class="form-check-input">
+Brake pads/rotors in good condition<br>
+<input type="checkbox" id="looseBodyPanels" class="form-check-input">
+No loose body panels.<br>
+<input type="checkbox" id="numbersOnAndVisible" class="form-check-input">
+Numbers on & clearly visible on body (no blue tape on a blue car & not window)</p>
+</div>
+
+
+ <div id="container">
+  <h2> Interior </h2>
+  <p>
+ <input type="checkbox" id="looseItemsRemoved" class="form-check-input">
+Floor mats and all other loose items removed from car
+ <br>
+<input type="checkbox" id="pedalsSecure" class="form-check-input">
+Brake, throttle, and clutch (if applicable) pedals secure
+ <br>
+<input type="checkbox" id="firmBreakPedal" class="form-check-input">
+Firm brake pedal
+ <br>
+<input type="checkbox" id="noPlayInSteering" class="form-check-input">
+No excessive play in the steering
+ <br>
+ <input type="checkbox" id="noPlayInSelector" class="form-check-input">
+No excessive play in gear selector
+ <br>
+ <input type="checkbox" id="seatInOrder" class="form-check-input"> 
+Seat in functional order
+<br>
+<input type="checkbox" id="seatBelt" class="form-check-input"> 
+Seat Belt proper for year of car and class
+<br>
+<input type="checkbox" id="gearMounted" class="form-check-input">
+Cameras, phones, and other gear mounted to car
+ <br>
+</p>
+</div>
+
+
+
+<div id="container">
+  <h2>Under the Hood and Trunk </h2>
+  <p>
+  <input type="checkbox" id="batterySecure" class="form-check-input">
+Battery and connections secure
+ <br>
+ <input type="checkbox" id="airIntakeSecure" class="form-check-input">
+Air intake or air box secure
+ <br>
+ <input type="checkbox" id="throttleCableSecure" class="form-check-input"> 
+Throttle cable secure (if applicable)
+<br>
+<input type="checkbox" id="fluidCapsSecure" class="form-check-input">
+All fluid caps secure
+ <br>
+ <input type="checkbox" id="noMajorLeaks" class="form-check-input"> 
+No major leaks apparent
+<br>
+<input type="checkbox" id="trunkEmpty" class="form-check-input"> 
+Trunk is empty of items that move around
+<br>
+<input type="checkbox" id="functionalExaust" class="form-check-input"> 
+Functional exhaust system thats not excessively loud and exit behind driver
+<br>
+</p>
+</div>
+<!-- INSPECTION CHECKLIST -->
+</body>
+</html>

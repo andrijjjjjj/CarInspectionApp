@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>CCSCC Car Inspection and Waiver App</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+
+<!-- create navigation bar (header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle Navigation</span> <span
+				class="icon-bar"></span><span class="icon-bar"></span><span
+				class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="/" th:ref="@{/}">CCSCC Car Inspection and Waiver App</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav">
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/waiver}">Waiver</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/uploadimage}">Upload Image</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/myGarage}">My Garage</a></li>
+			<li><a th:href="@{/AdminHomepage}">Admin</a></li>
+			<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+			</ul>
+			</div>	
+		</div>
+	</nav>
+	
+	<br>
+	<br>
+	<br>
+	<div class="container">
+	<table class="table">
+	<tr>
+	<th> ID </th>
+	<th> First Name </th>
+	<th> Last Name </th>
+	<th> Email </th>
+	<th> Waiver Signed? </th>
+	</tr>
+	
+	<tr th:each="user: ${user}">
+	<td th:text="${user.id}"/>
+	<td th:text="${user.firstName}"/>
+	<td th:text="${user.lastName}"/>
+	<td th:text="${user.email}"/>
+	<td th:text="${user.isSigned}"/>
+	</tr>
+	
+	</table>
+	
+	
+	<form th:action="@{/deleteUser}" method="post">
+ <!-- adding th:field crashes the program for some reason if you can figure it out before i wake up go for it -->
+	<input type="text" name="id" id="id" class="form-control" placeholder="User ID" autofocus="autofocus"/>
+	<button type="submit" class="btn btn-danger">Delete User</button>
+	</form>    
+
+</body>
+</html>
