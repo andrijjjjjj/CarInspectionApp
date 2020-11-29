@@ -21,6 +21,7 @@ import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -78,7 +79,28 @@ public class MainController {
 		String Email = auth.getName();
 		user = userRepository.findByEmail(Email); // new!! andrij
 		model.addAttribute("user", user); // new!! andrij
+		Calendar c = Calendar.getInstance();
+		String currentYear = new SimpleDateFormat("yyyy").format(new Date());
+		int yearPlusOne = Integer.parseInt(currentYear);
+		String reminder = "";
+		yearPlusOne = yearPlusOne + 1;
+		//sets Month
+		c.set(Calendar.MONTH, 00);
 		
+		c.set(Calendar.DATE, 01);
+		
+		c.set(Calendar.YEAR, yearPlusOne);
+		
+		Date nextNewYear = c.getTime();
+		System.out.println(yearPlusOne);
+		System.out.println(nextNewYear);
+		if(user.getSignedDate().after(nextNewYear)) {
+			user.setSigned(false);
+			userRepository.save(user);
+			reminder = "Remember to sign your yearly waiver!";
+			
+		}
+		model.addAttribute("reminder", reminder);
 //		model.addAttribute("myGarage", user.getMyGarage());
 //		model.addAttribute("photo", user.getUserImagePath());
 		return"index";
