@@ -1,0 +1,44 @@
+<!-- THIS IS A TEMPLATE HTML PAGE FOR ALL WEBPAGES! COPY/PASTE THIS FOR ALL FUTURE PAGES! -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+	<head>
+		<meta charset="UTF-8">
+		<!-- CSS STYLESHEET -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+		<!-- JAVASCRIPT (NAVBAR NEEDS THIS!) -->
+		<script th:href="@{/js/bootstrap.js}"></script>
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		
+		<title>TITLE FOR SPECIFIC WEBPAGE</title>
+	</head>
+	
+	<body>
+		<!-- Navigation bar (stored externally in Navbar.html) -->
+		<div th:insert="Navbar :: navbar"></div> 
+		<!-- DONT DELETE -->
+		
+		<!-- Add content here: -->
+		<div class="container">
+	<!--  THINGS THAT DIDNT WORK <table class="table"> 
+		<tr>
+		<th> Inspections</th>
+		</tr>
+		<tr th:each="inspection : ${inspections}">
+			<td th:text="${inspection}"> </td>
+		</tr>
+		
+		
+		</table> -->
+		<form method="post" th:action="@{/showInspections}">
+		<h2>Enter a date to show the inspection:</h2>
+		<input type="date" id="techDate" name="techDate">
+		<button type="submit" class="btn btn-success">Show Inspection</button>
+		</form>
+		</div>
+				
+		
+		
+	</body>
+</html>

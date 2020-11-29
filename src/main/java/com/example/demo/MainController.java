@@ -18,10 +18,15 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import javax.swing.JOptionPane;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -382,7 +387,7 @@ public class MainController {
 				@RequestParam(value="trunkEmpty", required = false)String trunkEmpty, @RequestParam(value="functionalExaust", required = false)String functionalExaust,
 				@RequestParam(value="inspectorsNotes", required = false) String inspectorsNotes) throws FileNotFoundException {
 		User carUser = userRepository.findById(userCarsId).orElseThrow(() -> new IllegalArgumentException("INVALID HERE"));
-		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		String currentDate = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		String currentDriver = carUser.getFirstName() + " " + carUser.getLastName();
 		String carMake = carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getMake();
 		String carModel = carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getModel();
@@ -392,7 +397,7 @@ public class MainController {
 		String Email = auth.getName();
 		User techUser = userRepository.findByEmail(Email);
 		String currentTech = techUser.getFirstName() + " " + techUser.getLastName();
-		String unChecked = "Inspection Report for " + currentDriver +"'s "+ carYear +" "+ carMake +" "+carModel +" on "+ currentDate +" by " + currentTech + "\r\n" + "\r\n" +"Unchecked Items: " + "\r\n" ;
+		String unChecked = "Inspection Report for " + currentDriver +"'s "+ carYear +" "+ carMake +" "+carModel +" on "+ currentDate +" by " + currentTech + ".\r\n" + "\r\n" +"Unchecked Items: " + "\r\n" ;
 	
 		inspectNote = inspectorsNotes;
 		if(playInWheelBearings != null) {
@@ -546,7 +551,7 @@ public class MainController {
 			
 		}
 		else {
-			unChecked = unChecked.concat("Trunk was not empty," + "\r\n");
+			unChecked = unChecked.concat("Trunk was not empty" + "\r\n");
 		}
 		
 		if( functionalExaust != null) {
@@ -591,17 +596,58 @@ public class MainController {
 		
 		return"redirect:/TechHomepage";
 	}
-	
+	String passthroughCarLic;
 	@GetMapping("/showInspections/{lisPlateNo}")
 	public String showInspecitions(@PathVariable("lisPlateNo") String liscPlateNo, Model model) {
+		passthroughCarLic = "";
+		//String currentCarLic = user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getLicensePlateNum();
+		passthroughCarLic = liscPlateNo;
+		System.out.println(liscPlateNo);
 		
-		user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getInspect();
-		model.addAttribute("inspections", user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getInspect());
-		System.out.println(user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getInspect());
 		return "showInspections";
+	}
+	String content = "";
+	@PostMapping("/showInspections")
+	public String postShowInspections(@RequestParam(value="techDate", required = false) String techDate, Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String Email = auth.getName();
+		User driver = userRepository.findByEmail(Email);
+		long driverId = driver.getId();
+		content = "";
+
+		
+		
+		String inspectionFileName ="./src/main/resources/static/inspections/" + driverId+"/"+passthroughCarLic+"/"+techDate+passthroughCarLic+".txt";
+		
+		Path filePath = Paths.get(inspectionFileName);
+		System.out.println(inspectionFileName);
+		try
+		{
+			content = Files.readString(filePath);
+			System.out.println(content);
+			
+			
+		}
+		catch(IOException e)
+		{
+			
+			System.out.println("WE ARE BROKEN");
+			
+		}
+		
+		
+		return "redirect:/inspectionFinal";
 	}
 	
 	
+	@GetMapping("/inspectionFinal")
+	public String inspecitonFinal(Model model) {
+		
+		
+		model.addAttribute("inspectString", content);
+		
+		return"inspectionFinal";
+	}
 	
 	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
 	@GetMapping("/changeRole/{id}")
