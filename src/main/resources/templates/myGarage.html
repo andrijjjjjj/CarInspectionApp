@@ -34,6 +34,7 @@
 		<th> License </th>
 		<th> Class </th>
 		<th> Photo </th>
+		<th>       </th>
 		</tr>
 		
 		<ul th:each="car : ${myGarage}">
@@ -45,6 +46,7 @@
 				<td><p th:text="${car.getLicensePlateNum()}"/></td>
 				<td><p th:text="${car.getVehicleClass()}"/></td>
 				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
+				<td><a class="btn btn-primary" th:href="@{/showInspections/{lisPlateNo} (lisPlateNo = ${car.licensePlateNum})}" role="button">Show Inspections</a></td>
 			</tr>
 		</ul>
 	</table> 

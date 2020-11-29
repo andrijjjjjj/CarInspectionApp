@@ -11,6 +11,7 @@
 package com.example.demo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.persistence.Column;
 
@@ -26,7 +27,9 @@ public class Car implements Serializable{
 	private int year;
 	private Long id;
 	private String carPhoto;
+	private ArrayList<String> inspect;
 	
+
 	public Car(String make, String model, int year, String vehicleClass, String licensePlateNum, String carPhoto, Long id) {
 		this.make = make;
 		this.model = model; 
@@ -36,7 +39,7 @@ public class Car implements Serializable{
 		this.carPhoto = carPhoto;
 		this.id = id; 
 	}
-
+	
 	public String getMake() {
 		return make;
 	}
@@ -70,6 +73,7 @@ public class Car implements Serializable{
 		return id;
 	}
 	
+
 	@Transient
 	public String getCarImagePath(){
 //		if (carPhoto == null) return null;
@@ -82,5 +86,16 @@ public class Car implements Serializable{
 		}
 		
 		return "/pictures/" + id + "/cars/" + licensePlateNum + "/" + carPhoto;
+	}
+
+	public ArrayList<String> getInspect() {
+		return inspect;
+	}
+
+	public void setInspect(ArrayList<String> inspect) {
+		this.inspect = inspect;
+	}
+	public void makeArrayListNotNull() {
+		inspect = new ArrayList<String>();
 	}
 }

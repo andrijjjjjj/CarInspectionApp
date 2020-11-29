@@ -9,12 +9,16 @@
 
 package com.example.demo;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +52,8 @@ public class MainController {
 	RoleRepository roleRepository;
 	
 	User user;
+	
+	long throughputId;
 	
 	@GetMapping("/login")
 	public String login() {
@@ -221,7 +227,7 @@ public class MainController {
 		}
 		
 		
-		return "deleteCar"; // change to mygarage
+		return "redirect:/myGarage"; // change to mygarage
 	}
 	
 	@GetMapping("/uploadimage")
@@ -237,7 +243,7 @@ public class MainController {
 	}
 	
 	@PostMapping("/waiver")
-	public void waiverSubmit(@RequestParam(value="waiverVerify",required =false) String checkboxValue,Model model) {
+	public String waiverSubmit(@RequestParam(value="waiverVerify",required =false) String checkboxValue,Model model) {
 		boolean waiverVerify = false;
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		model.addAttribute("waiverVerify", waiverVerify);
@@ -256,7 +262,7 @@ public class MainController {
 		user.setSignedDate(currentDate);
 		userRepository.save(user);
 		
-		
+		return"redirect:/";
 	}
 
 	@PostMapping("/saveUserPic")
@@ -310,10 +316,12 @@ public class MainController {
 	}
 	
 	@PostMapping("/deleteUser")
-	public void deleteUser(@RequestParam(value="id",required =false)Long id, Model model ) {
+	public String deleteUser(@RequestParam(value="id",required =false)Long id, Model model ) {
 		
 	    User delUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
 	    userRepository.delete(delUser);
+	    
+	    return"redirect:/AdminHomepage";
 	} 
 	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/AdminHomepage")
@@ -334,6 +342,8 @@ public class MainController {
 		model.addAttribute("user", userRepository.findAll());
 		return "techShowUser";
 	}
+	
+	long userCarsId;
 	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
 	@GetMapping("/techShowUserCars/{id}")
 	public String techShowUserCars(@PathVariable("id") long id, Model model) {
@@ -341,17 +351,257 @@ public class MainController {
 		String Email = auth.getName();
 
 		user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+		userCarsId = id;
+		System.out.println(userCarsId);
 		model.addAttribute("user", user);
 		model.addAttribute("myGarage", user.getMyGarage());
 		return "techShowUserCars";
 	}
+	String throughputLicPlateNo;
 	
 	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
-	@GetMapping("/techInspection")
-	public String techInspection() {
+	@GetMapping("/techInspection/{carLiscPlateNo}")
+	public String techInspection(@PathVariable("carLiscPlateNo") String liscPlateNo) {
+		throughputLicPlateNo = "";
+		throughputLicPlateNo = liscPlateNo;
 		return "techInspection";
 	}
-	long throughputId;
+	String inspectNote= "";
+	@PostMapping("/techInspection")
+	public String postTechInspection(@RequestParam(value="playInWheelBearings", required = false)String playInWheelBearings,
+				@RequestParam(value="wheelsAreTight", required = false)String wheelsAreTight, @RequestParam(value="hubcapsRemoved", required = false)String hubcapsRemoved,
+				@RequestParam(value="tiresInGoodCondition", required = false)String tiresInGoodCondition,@RequestParam(value="tireTreadDepth", required = false)String tireTreadDepth,
+				@RequestParam(value="brakePadsGoodCondition", required = false)String brakePadsGoodCondition, @RequestParam(value="looseBodyPanels", required = false)String looseBodyPanels,
+				@RequestParam(value="numbersOnAndVisible", required = false)String numbersOnAndVisible, @RequestParam(value="looseItemsRemoved", required = false)String looseItemsRemoved,
+				@RequestParam(value="pedalsSecure", required = false)String pedalsSecure, @RequestParam(value="firmBreakPedal", required = false)String firmBreakPedal,
+				@RequestParam(value="noPlayInSteering", required = false)String noPlayInSteering, @RequestParam(value="noPlayInSelector", required = false)String noPlayInSelector,
+				@RequestParam(value="seatInOrder", required = false)String seatInOrder, @RequestParam(value="seatBelt", required = false)String seatBelt, 
+				@RequestParam(value="gearMounted", required = false)String gearMounted, @RequestParam(value="batterySecure", required = false)String batterySecure,
+				@RequestParam(value="airIntakeSecure", required = false)String airIntakeSecure, @RequestParam(value="throttleCableSecure", required = false)String throttleCableSecure,
+				@RequestParam(value="fluidCapsSecure", required = false)String fluidCapsSecure, @RequestParam(value="noMajorLeaks", required = false)String noMajorLeaks,
+				@RequestParam(value="trunkEmpty", required = false)String trunkEmpty, @RequestParam(value="functionalExaust", required = false)String functionalExaust,
+				@RequestParam(value="inspectorsNotes", required = false) String inspectorsNotes) throws FileNotFoundException {
+		User carUser = userRepository.findById(userCarsId).orElseThrow(() -> new IllegalArgumentException("INVALID HERE"));
+		String currentDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+		String currentDriver = carUser.getFirstName() + " " + carUser.getLastName();
+		String carMake = carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getMake();
+		String carModel = carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getModel();
+		long driverId = carUser.getId();
+		int carYear = carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getYear();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String Email = auth.getName();
+		User techUser = userRepository.findByEmail(Email);
+		String currentTech = techUser.getFirstName() + " " + techUser.getLastName();
+		String unChecked = "Inspection Report for " + currentDriver +"'s "+ carYear +" "+ carMake +" "+carModel +" on "+ currentDate +" by " + currentTech + "\r\n" + "\r\n" +"Unchecked Items: " + "\r\n" ;
+	
+		inspectNote = inspectorsNotes;
+		if(playInWheelBearings != null) {
+			 
+		}
+		else {
+			unChecked = unChecked.concat("There was Some Play In the wheel bearings," + "\r\n");
+		}
+		
+		if(wheelsAreTight != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Wheels Are Not Tight," + "\r\n");
+		}
+		
+		if(hubcapsRemoved != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Hubcaps were not removed or firmly secured by lug nuts,"+ "\r\n");
+		}
+		
+		if(tiresInGoodCondition != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Tries were not in good condition,"+ "\r\n");
+		}
+		
+		if(tireTreadDepth != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Tire tread Depth was not appropriate,"+ "\r\n");
+		}
+		
+		if(brakePadsGoodCondition != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Brake pads were not in good condition,"+ "\r\n");
+		}
+		
+		if(looseBodyPanels != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Some body panels were loose,"+ "\r\n");
+		}
+		
+		if(numbersOnAndVisible != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Numbers were not on the vehicle or visible," + "\r\n");
+		}
+		
+		if(looseItemsRemoved != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("There were loose items in the car," + "\r\n");
+		}
+		
+		if(pedalsSecure != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Brake, Throttle, or Clutch was not secure," + "\r\n");
+		}
+		
+		if(firmBreakPedal != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Brake pedal was not firm," + "\r\n");
+		}
+		
+		if(noPlayInSteering != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("There was some excessive play in steering," + "\r\n");
+		}
+		
+		if(noPlayInSelector != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("There was some excessive play in the gear selector," + "\r\n");
+		}
+		
+		if(seatInOrder != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Seat was not in functional order," + "\r\n");
+		}
+		
+		if(seatBelt != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Seat belt was not proper for year of car and class," + "\r\n");
+		}
+		
+		if(gearMounted != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Camreas, Phones, and other gear was not mounted to the car," + "\r\n");
+		}
+		
+		if( batterySecure != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Battery and connections were not secure," + "\r\n");
+		}
+		
+		if( airIntakeSecure != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Aire intake or Airbox was not secure," + "\r\n");
+		}
+		
+		if( throttleCableSecure != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Throttle cable was not secure," + "\r\n");
+		}
+		
+		if( fluidCapsSecure != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("All fluid caps were not secure," + "\r\n");
+		}
+		
+		if( noMajorLeaks != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("There was a major leak apparent somewhere on the vehicle," + "\r\n");
+		}
+		
+		if( trunkEmpty != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Trunk was not empty," + "\r\n");
+		}
+		
+		if( functionalExaust != null) {
+			
+		}
+		else {
+			unChecked = unChecked.concat("Exaust system was not functional or was excessively loud or does not exit behind driver," + "\r\n");
+		}
+		unChecked = unChecked.concat("\r\n" + "\r\n");
+		if(inspectorsNotes != null ) {
+			unChecked = unChecked.concat("Inspectors Notes: " + "\r\n");
+			unChecked = unChecked.concat(inspectNote);
+			System.out.println(inspectNote);
+		}
+		else {
+			
+		}
+		
+		
+		//.getInspections().add(unChecked);
+		System.out.println(throughputLicPlateNo);
+		
+	/*	System.out.println(carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getModel());
+		carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).makeArrayListNotNull();
+		System.out.println(carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getInspect());
+		carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getInspect().add(unChecked);
+		System.out.println(carUser.getMyGarage().get(carUser.findCarByLicenseTest(throughputLicPlateNo)).getInspect()); */
+		System.out.println(unChecked +" "+ throughputLicPlateNo);
+		
+		String upDir = "./src/main/resources/static/inspections/"+ driverId+"/"+throughputLicPlateNo;
+		File theDir = new File(upDir);
+		if(!theDir.exists()) {
+			theDir.mkdirs();
+		}
+		String inspectFilename = "./src/main/resources/static/inspections/"+ driverId+"/"+throughputLicPlateNo+"/"+currentDate+throughputLicPlateNo+".txt";
+
+
+		PrintWriter printw = new PrintWriter(inspectFilename);
+		
+		printw.println(unChecked);
+		printw.close();
+		
+		return"redirect:/TechHomepage";
+	}
+	
+	@GetMapping("/showInspections/{lisPlateNo}")
+	public String showInspecitions(@PathVariable("lisPlateNo") String liscPlateNo, Model model) {
+		
+		user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getInspect();
+		model.addAttribute("inspections", user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getInspect());
+		System.out.println(user.getMyGarage().get(user.findCarByLicense(liscPlateNo)).getInspect());
+		return "showInspections";
+	}
+	
+	
 	
 	@PreAuthorize("hasAnyRole('TECH','ADMIN')")
 	@GetMapping("/changeRole/{id}")
@@ -366,12 +616,14 @@ public class MainController {
 		return "changeRole";
 	}
 	@PostMapping("/changeRole")
-	public void postChangeRole(@RequestParam(value="roleName",required =false)String roleName, Model model) {
+	public String postChangeRole(@RequestParam(value="roleName",required =false)String roleName, Model model) {
 		User user = userRepository.findById(throughputId).orElseThrow(() -> new IllegalArgumentException("Invalid at findbyid"));
 		model.addAttribute("uName", user.getFirstName());
 		Role role = roleRepository.findById((throughputId)).orElseThrow(() -> new IllegalArgumentException("Invalid at findbyid"));
 		System.out.println(throughputId);
 		role.setName("ROLE_" + roleName.toUpperCase());
 		roleRepository.save(role);
+		
+		return "redirect:/AdminHomepage";
 	}
 }

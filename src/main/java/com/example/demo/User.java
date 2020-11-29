@@ -127,6 +127,18 @@ public class User {
 		return index+1;
 	}
 	
+	public int findCarByLicenseTest(String x) {
+		int index = 0;
+		for(int i = 0; i < myGarage.size(); i++)
+		{
+			if(myGarage.get(i).getLicensePlateNum() == x)
+			{
+				index = i;
+			}
+		}
+		return index;
+	}
+	
 	public Long getId() {
 		return id;
 	}

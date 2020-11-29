@@ -37,7 +37,7 @@
 	<td th:text="${user.firstName}"/>
 	<td th:text="${user.lastName}"/>
 	<td th:text="${user.email}"/>
-	<!-- Show cars for logged in user but need to figure out how to make it show for user  -->
+	
 	<td> <a class="btn btn-primary" th:href="@{/techShowUserCars/{id} (id = ${user.id})}" role="button">Show Garage</a> </td>
 	</tr>
 	

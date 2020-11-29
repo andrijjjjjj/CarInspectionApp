@@ -20,31 +20,31 @@
 		<!-- DONT DELETE -->
 		
 		<!-- Add content here: -->
-		<div class="container">
-<br>
-<br>
+<div class="container">
+
 <h1>2020 CCSCC Tech Inspection Checklist</h1>
 <!-- INSPECTION CHECKLIST -->
 <hr>
-  <div id="container">
+<form method="post" th:action="@{/techInspection}">
+ <div id="container">
   <h2> Exterior </h2>
   
  <p>
- <input type="checkbox" id="playInWheelBearings" class="form-check-input"> 
+ <input type="checkbox" id="playInWheelBearings" name="playInWheelBearings"  class="form-check-input"> 
  No Play In Wheel Bearings (Grab tires and wiggle them hard) <br>
- <input type="checkbox" id="wheelsAreTight" class="form-check-input">
+ <input type="checkbox" id="wheelsAreTight" name="wheelsAreTight"  class="form-check-input">
 Wheels are tight and have no visible cracks <br>
-<input type="checkbox" id="hubcapsRemoved" class="form-check-input">
+<input type="checkbox" id="hubcapsRemoved" name="hubcapsRemoved" th:checked="hubcapsRemoved" class="form-check-input">
 Hubcaps or center caps removed or firmly secured by lug nuts (if applicable)<br>
-<input type="checkbox" id="tiresInGoodCondition" class="form-check-input">
+<input type="checkbox" id="tiresInGoodCondition" name="tiresInGoodCondition" class="form-check-input">
 Tires must be in good condition with no cords/belts showing or cracks.<br>
-<input type="checkbox" id="tireTreadDepth" class="form-check-input">
+<input type="checkbox" id="tireTreadDepth" name="tireTreadDepth" class="form-check-input">
 Tire tread depth (as appropriate)<br>
-<input type="checkbox" id="brakePadsGoodCondition" class="form-check-input">
+<input type="checkbox" id="brakePadsGoodCondition" name="brakePadsGoodCondition" class="form-check-input">
 Brake pads/rotors in good condition<br>
-<input type="checkbox" id="looseBodyPanels" class="form-check-input">
+<input type="checkbox" id="looseBodyPanels" name="looseBodyPanels" class="form-check-input">
 No loose body panels.<br>
-<input type="checkbox" id="numbersOnAndVisible" class="form-check-input">
+<input type="checkbox" id="numbersOnAndVisible" name="numbersOnAndVisible" class="form-check-input">
 Numbers on & clearly visible on body (no blue tape on a blue car & not window)</p>
 </div>
 
@@ -52,28 +52,28 @@ Numbers on & clearly visible on body (no blue tape on a blue car & not window)</
  <div id="container">
   <h2> Interior </h2>
   <p>
- <input type="checkbox" id="looseItemsRemoved" class="form-check-input">
+ <input type="checkbox" id="looseItemsRemoved" name ="looseItemsRemoved" class="form-check-input">
 Floor mats and all other loose items removed from car
  <br>
-<input type="checkbox" id="pedalsSecure" class="form-check-input">
+<input type="checkbox" id="pedalsSecure" name="pedalsSecure" class="form-check-input">
 Brake, throttle, and clutch (if applicable) pedals secure
  <br>
-<input type="checkbox" id="firmBreakPedal" class="form-check-input">
+<input type="checkbox" id="firmBreakPedal" name="firmBreakPedal" class="form-check-input">
 Firm brake pedal
  <br>
-<input type="checkbox" id="noPlayInSteering" class="form-check-input">
+<input type="checkbox" id="noPlayInSteering" name="noPlayInSteering" class="form-check-input">
 No excessive play in the steering
  <br>
- <input type="checkbox" id="noPlayInSelector" class="form-check-input">
+ <input type="checkbox" id="noPlayInSelector" name="noPlayInSelector" class="form-check-input">
 No excessive play in gear selector
  <br>
- <input type="checkbox" id="seatInOrder" class="form-check-input"> 
+ <input type="checkbox" id="seatInOrder" name="seatInOrder" class="form-check-input"> 
 Seat in functional order
 <br>
-<input type="checkbox" id="seatBelt" class="form-check-input"> 
+<input type="checkbox" id="seatBelt" name="seatBelt" class="form-check-input"> 
 Seat Belt proper for year of car and class
 <br>
-<input type="checkbox" id="gearMounted" class="form-check-input">
+<input type="checkbox" id="gearMounted" name="gearMounted" class="form-check-input">
 Cameras, phones, and other gear mounted to car
  <br>
 </p>
@@ -84,29 +84,34 @@ Cameras, phones, and other gear mounted to car
 <div id="container">
   <h2>Under the Hood and Trunk </h2>
   <p>
-  <input type="checkbox" id="batterySecure" class="form-check-input">
+  <input type="checkbox" id="batterySecure" name="batterySecure" class="form-check-input">
 Battery and connections secure
  <br>
- <input type="checkbox" id="airIntakeSecure" class="form-check-input">
+ <input type="checkbox" id="airIntakeSecure" name="airIntakeSecure" class="form-check-input">
 Air intake or air box secure
  <br>
- <input type="checkbox" id="throttleCableSecure" class="form-check-input"> 
+ <input type="checkbox" id="throttleCableSecure" name="throttleCableSecure" class="form-check-input"> 
 Throttle cable secure (if applicable)
 <br>
-<input type="checkbox" id="fluidCapsSecure" class="form-check-input">
+<input type="checkbox" id="fluidCapsSecure" name="fluidCapsSecure" class="form-check-input">
 All fluid caps secure
  <br>
- <input type="checkbox" id="noMajorLeaks" class="form-check-input"> 
+ <input type="checkbox" id="noMajorLeaks" name="noMajorLeaks" class="form-check-input"> 
 No major leaks apparent
 <br>
-<input type="checkbox" id="trunkEmpty" class="form-check-input"> 
+<input type="checkbox" id="trunkEmpty" name="trunkEmpty" class="form-check-input"> 
 Trunk is empty of items that move around
 <br>
-<input type="checkbox" id="functionalExaust" class="form-check-input"> 
+<input type="checkbox" id="functionalExaust"  name="functionalExaust" class="form-check-input"> 
 Functional exhaust system thats not excessively loud and exit behind driver
-<br>
 </p>
+<div class="container">
+<h2>Inspectors Notes:</h2>
+<textarea id="inspectorsNotes" name="inspectorsNotes" rows="5" cols="50" placeholder="Any other notes to leave about the car"></textarea>
 </div>
-		
-	</body>
+<input type="submit" class="btn btn-success">
+</div>
+</form>
+</div>	
+</body>
 </html>

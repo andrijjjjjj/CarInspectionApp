@@ -48,7 +48,7 @@
 				<td><p th:text="${car.getLicensePlateNum()}"/></td>
 				<td><p th:text="${car.getVehicleClass()}"/></td>
 				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
-				<td><a class="btn btn-primary" th:href="@{/techInspection}" role="button">Inspection Checklist</a></td>
+				<td><a class="btn btn-primary" th:href="@{/techInspection/{carLiscPlateNo} (carLiscPlateNo = ${car.licensePlateNum})}" role="button">Inspection Checklist</a></td>
 			</tr>
 		</ul>
 		

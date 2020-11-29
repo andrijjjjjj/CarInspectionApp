@@ -30,6 +30,6 @@ public class addUserController {
 	@PostMapping
 	public String addUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
 		userService.save(registrationDto);
-		return "redirect:/addUser?success";
+		return "redirect:/AdminHomepage";
 	}
 }
