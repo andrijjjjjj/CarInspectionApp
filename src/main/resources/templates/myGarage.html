@@ -11,7 +11,7 @@
 		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 		
-		<title>CCSCC: My garage</title>
+		<title>CCSCC: My Garage</title>
 	</head>
 	
 	<body>
@@ -35,7 +35,7 @@
 		<th> Class </th>
 		<th> Photo </th>
 		</tr>
-		
+
 		<ul th:each="car : ${myGarage}">
 			<tr>
 				<td><p th:text="${user.findCar(car)}"/></td>
@@ -44,7 +44,7 @@
 				<td><p th:text="${car.getYear()}"/></td>
 				<td><p th:text="${car.getLicensePlateNum()}"/></td>
 				<td><p th:text="${car.getVehicleClass()}"/></td>
-				<td><img th:src="${car.getCarImagePath()}" style="width:17em; height: 10em;"><td>
+				<td><img th:src="@{${car.getCarImagePath()}}" style="width:17em; height: 10em;"><td>
 			</tr>
 		</ul>
 	</table> 

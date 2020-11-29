@@ -20,11 +20,16 @@
 		<!-- DONT DELETE -->
 		
 		<!-- Add content here: -->
-		<div class="container" style="position:fixed; top:30%; left:35%;">
-			<h1>Sorry, you can't access this page.</h1>
-			<h3>Contact a CCSCC administrator if you believe this is a mistake.</h3>
-			<!--  <a class="btn btn-primary" href="/">Back to home</a>-->
-			<a class="btn btn-primary" th:href="@{/}">Take me back home</a>
+		<div class="container-fluid" style="padding:2em;">
+			<!--<h1>Sorry, you can't access this page.</h1>
+			<p>Contact a CCSCC administrator if you believe this is a mistake.</p>
+			<!--  <a class="btn btn-primary" href="/">Back to home</a>
+			<a class="btn btn-primary" th:href="@{/}">Take me back home</a>-->
+			
+			
+			<div class="row"style="padding:2em;">
+				<div class="col-sm-6" style="background-color:white;text-align:left;"><img th:src="@{~/errorBanner.png}"  style="width:60vw; height: 20vh;"></div>
+			</div>
 		</div>
 		
 	</body>
