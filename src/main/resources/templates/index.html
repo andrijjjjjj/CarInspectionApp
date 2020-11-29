@@ -24,20 +24,9 @@
 	    <!-- Control the column width, and how they should appear on different devices -->
 	    <div class="row">
 	      <div class="col-sm-6" style="background-color:white;text-align:center;"><img th:src="${user.getUserImagePath()}" class="rounded-circle" style="width:10em; height: 10em;"></div>
-	      <div class="col-sm-6 align-self-center" style="background-color:white;"><h2>Welcome back <span th:text="${user.getFirstName()}">default</span>!</h2></div>
+	      <div class="col-sm-6 align-self-center" style="background-color:white;"><h2>Welcome back <span th:text="${user.getFirstName()}"></span>!</h2></div>
 	    </div>
 	    <br>
-	    
-	    <!-- <div class="row">
-	      <div class="col-sm-6 align-self-center" style="background-color:white;"><h2>What's new:</h2></div>
-	     </div>
-	    <div class="row">
-	      <div class="col-sm-6 align-self-center" style="background-color:white;"><h2>Vehicles waiting tech approval:</h2></div></div>
-	    <br>
-	    
-	    <div class="row">
-	      <div class="col-sm-6 align-self-center" style="background-color:white;"><h2>Other things....</h2></div></div>
-	    <br> -->
 	  </div>
 	</body>
 </html>

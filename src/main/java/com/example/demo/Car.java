@@ -12,8 +12,6 @@ package com.example.demo;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
-
 import org.springframework.data.annotation.Transient;
 
 public class Car implements Serializable{
@@ -72,11 +70,6 @@ public class Car implements Serializable{
 	
 	@Transient
 	public String getCarImagePath(){
-//		if (carPhoto == null) return null;
-		
-//		return "/pictures/" + licensePlateNum + "/" + carPhoto;
-		//return "/pictures/" + id + "/" + photo;
-//		"/pictures/" + id + "/profile/" + photo;
 		if (carPhoto == null || id == null) {
 			return "defaultCarLogo.png";
 		}
