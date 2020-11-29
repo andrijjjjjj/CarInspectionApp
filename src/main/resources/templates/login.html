@@ -18,7 +18,7 @@
 	<body>
 		<!-- Navigation bar (stored externally in Navbar.html) -->
 		<!-- <div th:insert="Navbar :: navbar"></div>  -->
-		<!-- DONT DELETE -->
+		<!-- Navbar is disabled for login -->
 		
 		<!-- Add content here: -->
 			<div class="container" style="align-items: center;justify-content: center;padding:5em;">
@@ -56,7 +56,6 @@
 					<div class="col-sm-6 col-sm-offset-3">
 						<input type="submit" name="login-submit" id="login-submit"
 							class="form-control btn btn-primary" value="Log In">
-			
 					</div>
 				</div>
 			</div>	
@@ -64,7 +63,7 @@
 				
 			</form>
 			<div class="form-group">
-				<span>New User? <a href ="/" th:href="@{/registration}">Register Here</a></span>
+				<span>New User? <a href ="/" th:href="@{/registration}" >Register Here</a></span>
 			
 			</div>
 			</div>
