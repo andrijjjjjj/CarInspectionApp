@@ -51,11 +51,11 @@
 		</ul>
 	</table> 
 	
-	<form action="/addCar">
+	<form th:action="@{addCar}" method="get">
     <input type="submit" value="Add a car to your garage" class="btn btn-success"/>
 </form>
 <br>
-<form action="/deleteCar">
+<form th:action="@{deleteCar}" method="get">
     <input type="submit" value="Remove a car from your garage" class="btn btn-danger" />
 </form>
 		
