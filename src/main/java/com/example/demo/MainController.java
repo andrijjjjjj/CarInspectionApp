@@ -94,12 +94,19 @@ public class MainController {
 		Date nextNewYear = c.getTime();
 		System.out.println(yearPlusOne);
 		System.out.println(nextNewYear);
-		if(user.getSignedDate().after(nextNewYear)) {
-			user.setSigned(false);
-			userRepository.save(user);
+		if(user.getSignedDate() == null) {
+			System.out.println("this thing isnt erroring");
 			reminder = "Remember to sign your yearly waiver!";
-			
 		}
+		else {
+			if(user.getSignedDate().after(nextNewYear)) {
+				user.setSigned(false);
+				userRepository.save(user);
+				reminder = "Remember to sign your yearly waiver!";
+				
+		  }
+		}
+		
 		model.addAttribute("reminder", reminder);
 //		model.addAttribute("myGarage", user.getMyGarage());
 //		model.addAttribute("photo", user.getUserImagePath());
